@@ -8,21 +8,30 @@ function FeedScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button
-        title="Go to Settttttings"
+        title="Go to Settings"
         onPress={() => navigation.navigate('Settings')}
       />
     </View>
   );
 }
 
-function ProfileScreen() {
+function ChatScreen() {
   return <View />;
 }
 
-function AccountScreen() {
+function MailScreen() {
   return <View />;
 }
 
+function LearnScreen() {
+  return <View />;
+}
+
+function ShareScreen() {
+  return <View />;
+}
+
+// Modal screens
 function SettingsScreen() {
   return <View />;
 }
@@ -33,8 +42,10 @@ function HomeTabs() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Feed" component={FeedScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen name="Account" component={AccountScreen} />
+      <Tab.Screen name="Chat" component={ChatScreen} />
+      <Tab.Screen name="Mail" component={MailScreen} />
+      <Tab.Screen name="Learn" component={LearnScreen} />
+      <Tab.Screen name="Share" component={ShareScreen} />
     </Tab.Navigator>
   );
 }
