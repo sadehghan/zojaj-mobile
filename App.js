@@ -1,38 +1,16 @@
 import * as React from 'react';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import IconWithBadge from './components/IconWithBadge';
-
-function FeedScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        title="Go to Settings"
-        onPress={() => navigation.navigate('Settings')}
-      />
-    </View>
-  );
-}
-
-function ChatScreen() {
-  return <View />;
-}
-
-function MailScreen() {
-  return <View />;
-}
-
-function LearnScreen() {
-  return <View />;
-}
-
-function ShareScreen() {
-  return <View />;
-}
+import FeedScreen from './screens/FeedScreen';
+import ChatScreen from './screens/ChatScreen';
+import MailScreen from './screens/MailScreen';
+import LearnScreen from './screens/LearnScreen';
+import ShareScreen from './screens/ShareScreen';
 
 // Modal screens
 function SettingsScreen() {
@@ -84,7 +62,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen options={{headerShown: false}} name="Home" component={HomeTabs} />
+        <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
