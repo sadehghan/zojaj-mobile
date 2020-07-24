@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, I18nManager } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,6 +11,8 @@ import ChatScreen from './screens/ChatScreen';
 import MailScreen from './screens/MailScreen';
 import LearnScreen from './screens/LearnScreen';
 import ShareScreen from './screens/ShareScreen';
+
+I18nManager.forceRTL(false);
 
 // Modal screens
 function SettingsScreen() {
@@ -24,7 +26,7 @@ function HomeTabs() {
     <Tab.Navigator
       tabBarOptions={{
         activeTintColor: 'black',
-        inactiveTintColor: 'lightslategrey',
+        inactiveTintColor: 'darkgrey',
       }}
     >
       <Tab.Screen
