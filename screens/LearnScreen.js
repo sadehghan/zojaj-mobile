@@ -1,10 +1,29 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-const LearnScreen = props => {
+function OneScreen({ route, navigation }) {
+    const { itemId } = route.params;
     return (
         <View style={styles.container}>
-            <Text>Learn Screen...!</Text>
+            <Text>ITEM ID: {JSON.stringify(itemId)}</Text>
+        </View>
+    );
+}
+
+const LearnScreen = props => {
+
+    const Tab = createMaterialTopTabNavigator();
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text>Sama</Text>
+            </View>
+            <Tab.Navigator>
+                <Tab.Screen name="One" component={OneScreen} initialParams={{ itemId: 11 }} />
+                <Tab.Screen name="Two" component={OneScreen} initialParams={{ itemId: 99 }} />
+            </Tab.Navigator>
         </View>
     );
 };
@@ -12,8 +31,17 @@ const LearnScreen = props => {
 styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+    },
+    header: {
+        height: '8%',
+        paddingTop: 30,
+        backgroundColor: 'white',
+        borderColor: 'lightgrey',
+        borderBottomWidth: 0.5,
+        justifyContent: 'space-between',
         alignItems: 'center',
+        flexDirection: 'row',
+        paddingHorizontal: 20,
     },
 });
 

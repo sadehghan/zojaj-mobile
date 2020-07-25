@@ -32,27 +32,27 @@ function HomeTabs() {
       <Tab.Screen
         name="Feed"
         component={FeedScreen}
-        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={focused ? "ios-paper" : 'md-paper'} color={color} size={size} badgeCount={0} />) }}
+        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'md-paper'} color={color} size={size} badgeCount={0} />) }}
       />
       <Tab.Screen
         name="Chat"
         component={ChatScreen}
-        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={focused ? "ios-chatbubbles" : 'md-chatbubbles'} color={color} size={size} badgeCount={1} />) }}
+        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-chatbubbles'} color={color} size={size} badgeCount={1} />) }}
       />
       <Tab.Screen
         name="Mail"
         component={MailScreen}
-        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={focused ? "ios-mail-open" : 'ios-mail'} color={color} size={size} badgeCount={0} />) }}
+        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-mail-open'} color={color} size={size} badgeCount={0} />) }}
       />
       <Tab.Screen
         name="Learn"
         component={LearnScreen}
-        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={focused ? "ios-book" : 'md-book'} color={color} size={size} badgeCount={0} />) }}
+        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'md-book'} color={color} size={size} badgeCount={0} />) }}
       />
       <Tab.Screen
         name="Share"
         component={ShareScreen}
-        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={focused ? "ios-cloudy" : 'md-cloud-outline'} color={color} size={size} badgeCount={0} />) }}
+        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'md-cloud-outline'} color={color} size={size} badgeCount={0} />) }}
       />
     </Tab.Navigator>
   );
