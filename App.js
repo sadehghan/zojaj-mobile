@@ -11,6 +11,7 @@ import ChatScreen from './screens/ChatScreen';
 import MailScreen from './screens/MailScreen';
 import LearnScreen from './screens/LearnScreen';
 import ShareScreen from './screens/ShareScreen';
+import FeedDetails from './screens/FeedDetails';
 
 I18nManager.forceRTL(false);
 
@@ -66,6 +67,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen name="FeedDetails" component={FeedDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

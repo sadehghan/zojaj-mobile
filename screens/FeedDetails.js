@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 
-const ShareScreen = props => {
+const FeedDetails = props => {
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text styles={{ fontSize: 40, fontWeight: 'bold' }}>HEDER</Text>
-            </View>
             <View style={styles.commentInput}>
                 <View style={{ paddingHorizontal: 20, backgroundColor: 'white', width: '95%', height: '80%', borderRadius: 15, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
                     <TextInput placeholder={'Add a Commeent ...'} style={{}}></TextInput>
-                    <TouchableOpacity onPress={props.navigation.navigate('FeedDetails')}>
-                        <Text style={{ color: 'blue' }}>POS</Text>
+                    <TouchableOpacity>
+                        <Text style={{ color: 'blue' }}>Post</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -94,4 +91,4 @@ styles = StyleSheet.create({
     }
 });
 
-export default ShareScreen;
+export default FeedDetails;

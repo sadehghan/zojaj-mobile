@@ -35,16 +35,16 @@ const FeedScreen = props => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
-                <Text styles={{ fontSize: 65, fontWeight: 'bold' }}></Text>
-                <TouchableOpacity><Ionicons name={'ios-recording'} size={30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
+                <Text styles={{ fontSize: 40, fontWeight: 'bold' }}></Text>
+                <TouchableOpacity onPress={props.navigation.navigate('FeedDetails')}><Ionicons name={'ios-recording'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
                 tabBarOptions={{
                     activeTintColor: 'black',
                     inactiveTintColor: 'darkgrey',
                     indicatorStyle: {
-                        backgroundColor : 'black'
+                        backgroundColor: 'black'
                     },
                     labelStyle: {
                         fontWeight: 'bold'
