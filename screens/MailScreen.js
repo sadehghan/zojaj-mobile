@@ -17,8 +17,7 @@ function TabInnerScreen({ route, navigation }) {
     };
 
     const callHandler = () => {
-       // navigation.navigate('MailDetails');
-       console.log('Mail Details');
+        navigation.navigate('MailDetails');
     };
 
     return (
@@ -39,7 +38,7 @@ const MailScreen = props => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity ><Ionicons name={'ios-search'} size={29} color={'black'} /></TouchableOpacity>
                 <TouchableOpacity>
                     <Image style={{ borderColor: 'black', borderWidth: 2, width: 36, height: 36, borderRadius: 18 }} source={{ uri: 'https://api.adorable.io/avatars/221' }} />
                 </TouchableOpacity>

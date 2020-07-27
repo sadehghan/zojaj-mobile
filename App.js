@@ -12,6 +12,7 @@ import MailScreen from './screens/MailScreen';
 import LearnScreen from './screens/LearnScreen';
 import ShareScreen from './screens/ShareScreen';
 import FeedDetails from './screens/FeedDetails';
+import MailDetails from './screens/MailDetails';
 
 I18nManager.forceRTL(false);
 
@@ -71,6 +72,7 @@ export default function App() {
         <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="FeedDetails" component={FeedDetails} />
+        <Stack.Screen name="MailDetails" component={MailDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

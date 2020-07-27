@@ -31,7 +31,7 @@ const FeedItem = props => {
                     </View>
                     <TouchableOpacity style={{ paddingLeft: 20 }}><Ionicons name={'ios-star-outline'} size={30} color={'black'} /></TouchableOpacity>
                 </View>
-                <FeedInfo modalCaller={props.modalCaller}/>
+                <FeedInfo modalCaller={props.modalCaller} />
             </View>
         </View>
     );

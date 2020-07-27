@@ -21,7 +21,7 @@ const FeedDetails = props => {
                         </View>
                         <View style={{ paddingTop: 5 }}>
                             <Text style={{ fontWeight: 'bold' }}>FarsNews</Text>
-                            <Text>{LONG_TEXT}</Text>
+                            <Text>{LONG_TEXT + LONG_TEXT}</Text>
                             <Text style={{ color: 'lightgrey', fontSize: 10, paddingTop: 10 }}>27m</Text>
                         </View>
                     </View>
@@ -68,7 +68,7 @@ styles = StyleSheet.create({
         // paddingTop: 30,
         backgroundColor: 'white',
         borderColor: 'darkgrey',
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 0.4,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',

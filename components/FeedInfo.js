@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity,Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const FeedInfo = props => {
