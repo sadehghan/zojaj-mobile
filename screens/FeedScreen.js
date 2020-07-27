@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 import FeedItem from '../components/FeedItem';
 
-function OneScreen({ route, navigation }) {
+function TabInnerScreen({ route, navigation }) {
     const { itemId } = route.params;
     const [feeds, setFeeds] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
     const [refresh, setRefresh] = useState(false);
@@ -16,6 +16,10 @@ function OneScreen({ route, navigation }) {
         setRefresh(false);
     };
 
+    const callHandler = () => {
+        navigation.navigate('FeedDetails');
+    };
+
     return (
         <FlatList
             refreshing={refresh}
@@ -23,7 +27,7 @@ function OneScreen({ route, navigation }) {
             data={feeds}
             keyExtractor={(item, index) => index.toString()}
             style={{ flex: 1 }}
-            renderItem={({ item, index }) => (<FeedItem id={index} dataType={JSON.stringify(itemId)} />)}
+            renderItem={({ item, index }) => (<FeedItem id={index} modalCaller={callHandler} dataType={itemId} />)}
         />
     );
 }
@@ -36,8 +40,7 @@ const FeedScreen = props => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
-                <Text styles={{ fontSize: 40, fontWeight: 'bold' }}></Text>
-                <TouchableOpacity onPress={props.navigation.navigate('FeedDetails')}><Ionicons name={'ios-recording'} size={30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity><Ionicons name={'ios-recording'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
                 tabBarOptions={{
@@ -47,14 +50,15 @@ const FeedScreen = props => {
                         backgroundColor: 'black'
                     },
                     labelStyle: {
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        fontSize: 10
                     },
                 }}
             >
-                <Tab.Screen name="Fars" component={OneScreen} initialParams={{ itemId: 'FarsNews' }} />
-                <Tab.Screen name="Javan" component={OneScreen} initialParams={{ itemId: 'Javan' }} />
-                <Tab.Screen name="Isna" component={OneScreen} initialParams={{ itemId: 'ISNA' }} />
-                <Tab.Screen name="Irinn" component={OneScreen} initialParams={{ itemId: 'IRINN' }} />
+                <Tab.Screen name="Fars" component={TabInnerScreen} initialParams={{ itemId: 'FarsNews' }} />
+                <Tab.Screen name="Javan" component={TabInnerScreen} initialParams={{ itemId: 'Javan' }} />
+                <Tab.Screen name="Isna" component={TabInnerScreen} initialParams={{ itemId: 'Isna' }} />
+                <Tab.Screen name="Irinn" component={TabInnerScreen} initialParams={{ itemId: 'Irinn' }} />
             </Tab.Navigator>
         </View>
     );
@@ -66,18 +70,16 @@ styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     header: {
-        height: '8%',
+        height: '9%',
         paddingTop: 30,
         backgroundColor: 'white',
-        //borderColor: 'lightgrey',
-        //borderBottomWidth: 0.5,
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
-        paddingHorizontal: 20,
+        paddingHorizontal: 30,
     },
     tabBar: {
-        height: '8%',
+        height: '9%',
         backgroundColor: 'white',
         borderColor: 'lightgrey',
         borderBottomWidth: 0.5,

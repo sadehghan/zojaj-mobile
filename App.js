@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, I18nManager } from 'react-native';
+import { View, I18nManager, Text } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -17,7 +17,10 @@ I18nManager.forceRTL(false);
 
 // Modal screens
 function SettingsScreen() {
-  return <View />;
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>settings screen</Text>
+    </View>);
 }
 
 const Tab = createBottomTabNavigator();
@@ -36,14 +39,14 @@ function HomeTabs() {
         options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'md-paper'} color={color} size={size} badgeCount={0} />) }}
       />
       <Tab.Screen
-        name="Chat"
-        component={ChatScreen}
-        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-chatbubbles'} color={color} size={size} badgeCount={1} />) }}
-      />
-      <Tab.Screen
         name="Mail"
         component={MailScreen}
         options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-mail-open'} color={color} size={size} badgeCount={0} />) }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-chatbubbles'} color={color} size={size} badgeCount={3} />) }}
       />
       <Tab.Screen
         name="Learn"

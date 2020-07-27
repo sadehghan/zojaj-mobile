@@ -36,7 +36,7 @@ styles = StyleSheet.create({
     },
     badge: {
         color: 'white',
-        fontSize: 10,
+        fontSize: 11,
         fontWeight: 'bold'
     },
 });

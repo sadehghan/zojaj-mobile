@@ -15,7 +15,7 @@ const FeedItem = props => {
                 <TouchableOpacity><Text style={{ paddingHorizontal: 4, fontWeight: 'bold' }}>...</Text></TouchableOpacity>
             </View>
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={props.modalCaller}>
                     <Image
                         source={{ uri: 'https://api.adorable.io/avatars/' + Math.ceil(Math.random() * 1000 + 1) }}
                         style={{ resizeMode: 'stretch', width: '100%', height: 275 }}
@@ -31,7 +31,7 @@ const FeedItem = props => {
                     </View>
                     <TouchableOpacity style={{ paddingLeft: 20 }}><Ionicons name={'ios-star-outline'} size={30} color={'black'} /></TouchableOpacity>
                 </View>
-                <FeedInfo />
+                <FeedInfo modalCaller={props.modalCaller}/>
             </View>
         </View>
     );
