@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { View, I18nManager, Text } from 'react-native';
+import { View, I18nManager, Text, TouchableOpacity } from 'react-native';
 
+import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -13,6 +14,7 @@ import LearnScreen from './screens/LearnScreen';
 import ShareScreen from './screens/ShareScreen';
 import FeedDetails from './screens/FeedDetails';
 import MailDetails from './screens/MailDetails';
+import MailCreateScreen from './screens/MailCreateScreen'
 
 I18nManager.forceRTL(false);
 
@@ -47,7 +49,7 @@ function HomeTabs() {
       <Tab.Screen
         name="Chat"
         component={ChatScreen}
-        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-chatbubbles'} color={color} size={size} badgeCount={3} />) }}
+        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-chatbubbles'} color={color} size={size} badgeCount={0} />) }}
       />
       <Tab.Screen
         name="Learn"
@@ -65,14 +67,43 @@ function HomeTabs() {
 
 const Stack = createStackNavigator();
 
+function MailCreateLogoTitle() {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 20, }}>
+      <Text style={{ color: 'grey', fontSize: 20 }}>Compose</Text>
+      <View style={{flexDirection: 'row',}}>
+        <TouchableOpacity style={{paddingHorizontal: 30}}><Ionicons name={'md-attach'} size={20} color={'black'} /></TouchableOpacity>
+        <TouchableOpacity ><Ionicons name={'md-send'} size={20} color={'black'} /></TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+function MailDetailsLogoTitle() {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingLeft: 10, paddingRight: 20, }}>
+      <Text style={{ color: 'grey', fontSize: 20 }}>Email</Text>
+    </View>
+  );
+}
+
+function FeedDetailsLogoTitle() {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingLeft: 10, paddingRight: 20, }}>
+      <Text style={{ color: 'grey', fontSize: 20 }}>Feed</Text>
+    </View>
+  );
+}
+
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="FeedDetails" component={FeedDetails} />
-        <Stack.Screen name="MailDetails" component={MailDetails} />
+        <Stack.Screen name="FeedDetails" component={FeedDetails} options={{ headerTitle: props => <FeedDetailsLogoTitle {...props} />}}/>
+        <Stack.Screen name="MailDetails" component={MailDetails} options={{ headerTitle: props => <MailDetailsLogoTitle {...props} />}}/>
+        <Stack.Screen name="MailCreate" component={MailCreateScreen} options={{ headerTitle: props => <MailCreateLogoTitle {...props} />}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

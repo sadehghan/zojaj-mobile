@@ -13,9 +13,9 @@ const MailItem = props => {
                 <Text style={{ fontWeight: 'bold' }} numberOfLines={1}>35 Latest Job Opportunities from IranTa...</Text>
                 <Text numberOfLines={1}>Dear Saman, our system has identified t...</Text>
             </View>
-            <View style={{alignItems: 'center', paddingLeft: 10}}>
-                <Text style={{ fontSize: 10}}>29 Jul</Text>
-                <TouchableOpacity style={{paddingTop: 10 }}><Ionicons name={'ios-star-outline'} size={20} color={'black'} /></TouchableOpacity>
+            <View style={{ alignItems: 'center', paddingLeft: 10 }}>
+                <Text style={{ fontSize: 10 }}>29 Jul</Text>
+                <TouchableOpacity style={{ paddingTop: 10 }}><Ionicons name={'ios-star-outline'} size={20} color={'black'} /></TouchableOpacity>
             </View>
         </TouchableOpacity>
     );

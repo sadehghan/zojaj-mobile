@@ -21,7 +21,7 @@ const MailDetails = props => {
                     <TouchableOpacity style={{ paddingLeft: 50, paddingRight: 20 }}><Ionicons name={'md-return-left'} size={30} color={'black'} /></TouchableOpacity>
                     <TouchableOpacity ><Ionicons name={'md-return-right'} size={30} color={'black'} /></TouchableOpacity>
                 </View>
-                <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
+                <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
                     <Text>{LONG_TEXT + LONG_TEXT}</Text>
                 </View>
             </ScrollView>

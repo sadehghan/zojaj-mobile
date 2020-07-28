@@ -35,13 +35,15 @@ function TabInnerScreen({ route, navigation }) {
 const MailScreen = props => {
     const Tab = createMaterialTopTabNavigator();
 
+    const callCreateMailHandler = () => {
+        props.navigation.navigate('MailCreate');
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity ><Ionicons name={'ios-search'} size={29} color={'black'} /></TouchableOpacity>
-                <TouchableOpacity>
-                    <Image style={{ borderColor: 'black', borderWidth: 2, width: 36, height: 36, borderRadius: 18 }} source={{ uri: 'https://api.adorable.io/avatars/221' }} />
-                </TouchableOpacity>
+                <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity onPress={callCreateMailHandler}><Ionicons name={'md-add'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
                 tabBarOptions={{
