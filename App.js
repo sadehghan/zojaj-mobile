@@ -14,7 +14,9 @@ import LearnScreen from './screens/LearnScreen';
 import ShareScreen from './screens/ShareScreen';
 import FeedDetails from './screens/FeedDetails';
 import MailDetails from './screens/MailDetails';
-import MailCreateScreen from './screens/MailCreateScreen'
+import MailCreateScreen from './screens/MailCreateScreen';
+import ChatContentScreen from './screens/ChatContentScreen';
+import ChatCreateScreen from './screens/ChatCreateScreen';
 
 I18nManager.forceRTL(false);
 
@@ -71,8 +73,8 @@ function MailCreateLogoTitle() {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 20, }}>
       <Text style={{ color: 'grey', fontSize: 20 }}>Compose</Text>
-      <View style={{flexDirection: 'row',}}>
-        <TouchableOpacity style={{paddingHorizontal: 30}}><Ionicons name={'md-attach'} size={20} color={'black'} /></TouchableOpacity>
+      <View style={{ flexDirection: 'row', }}>
+        <TouchableOpacity style={{ paddingHorizontal: 30 }}><Ionicons name={'md-attach'} size={20} color={'black'} /></TouchableOpacity>
         <TouchableOpacity ><Ionicons name={'md-send'} size={20} color={'black'} /></TouchableOpacity>
       </View>
     </View>
@@ -95,15 +97,26 @@ function FeedDetailsLogoTitle() {
   );
 }
 
+function ChatLogoTitle({ route, navigation }) {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingLeft: 10, paddingRight: 20, }}>
+      <Text style={{ color: 'grey', fontSize: 20 }}>Chat</Text>
+    </View>
+  );
+}
+
+
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="FeedDetails" component={FeedDetails} options={{ headerTitle: props => <FeedDetailsLogoTitle {...props} />}}/>
-        <Stack.Screen name="MailDetails" component={MailDetails} options={{ headerTitle: props => <MailDetailsLogoTitle {...props} />}}/>
-        <Stack.Screen name="MailCreate" component={MailCreateScreen} options={{ headerTitle: props => <MailCreateLogoTitle {...props} />}} />
+        <Stack.Screen name="FeedDetails" component={FeedDetails} options={{ headerTitle: props => <FeedDetailsLogoTitle {...props} /> }} />
+        <Stack.Screen name="MailDetails" component={MailDetails} options={{ headerTitle: props => <MailDetailsLogoTitle {...props} /> }} />
+        <Stack.Screen name="MailCreate" component={MailCreateScreen} options={{ headerTitle: props => <MailCreateLogoTitle {...props} /> }} />
+        <Stack.Screen name="ChatContent" component={ChatContentScreen} />
+        <Stack.Screen name="ChatCreate" component={ChatCreateScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

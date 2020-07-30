@@ -8,14 +8,13 @@ const ChatItem = props => {
             <View style={{ width: '20%' }}>
                 <Image style={{ width: 50, height: 50, borderRadius: 25 }} source={{ uri: 'https://api.adorable.io/avatars/' + Math.ceil(Math.random() * 1000 + 1) }} />
             </View>
-            <View style={{ width: '70%' }}>
+            <View style={{ width: '70%', justifyContent: 'center' }}>
                 <Text style={{ fontWeight: 'bold' }}>Jobinja.ir</Text>
-                <Text style={{ fontWeight: 'bold' }} numberOfLines={1}>35 Latest Job Opportunities from IranTa...</Text>
                 <Text numberOfLines={1}>Dear Saman, our system has identified t...</Text>
             </View>
-            <View style={{ alignItems: 'center', paddingLeft: 10 }}>
-                <Text style={{ fontSize: 10 }}>29 Jul</Text>
-                <TouchableOpacity style={{ paddingTop: 10, width: 20, height: 20, borderRadius: 10, backgroundColor: 'tomato'}}><Text>3</Text></TouchableOpacity>
+            <View style={{ justifyContent: 'center', alignItems: 'center', paddingLeft: 10 }}>
+                <Text style={{ fontSize: 10, paddingBottom: 10}}>28 Jul</Text>
+                <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 20, height: 20, borderRadius: 10, backgroundColor: 'tomato'}}><Text style={{alignItems: 'center'}}>1</Text></TouchableOpacity>
             </View>
         </TouchableOpacity>
     );

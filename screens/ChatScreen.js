@@ -17,8 +17,7 @@ function TabInnerScreen({ route, navigation }) {
     };
 
     const callChatHandler = () => {
-        //navigation.navigate('MailDetails');
-        console.log('Chat');
+        navigation.navigate('ChatContent', {itemId: 77});
     };
 
     return (
@@ -37,8 +36,8 @@ const ChatScreen = props => {
     const Tab = createMaterialTopTabNavigator();
 
     const callCreateChatHandler = () => {
-        //props.navigation.navigate('MailDetails');
-        console.log('Profile');
+        console.log('Create chat');
+        props.navigation.navigate('ChatCreate');
     };
 
     const callProfileHandler = () => {
@@ -50,7 +49,7 @@ const ChatScreen = props => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
-                <TouchableOpacity onPress={callProfileHandler}><Image style={{ width: 30, height: 30, borderRadius: 15 }} source={{ uri: 'https://api.adorable.io/avatars/55' }} /></TouchableOpacity>
+                <TouchableOpacity onPress={callProfileHandler}><Image style={{ width: 34, height: 34, borderRadius: 17 }} source={{ uri: 'https://api.adorable.io/avatars/55' }} /></TouchableOpacity>
                 <TouchableOpacity onPress={callCreateChatHandler}><Ionicons name={'md-add'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
