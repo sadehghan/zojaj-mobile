@@ -20,16 +20,16 @@ const ChatCreateScreen = props => {
     return (
         <View style={styles.container}>
             <View style={{ backgroundColor: 'white' }}>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 10 }}>
+                <TouchableOpacity style={{ flexDirection: 'row-reverse', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 10 }}>
                     <Ionicons name={'md-add'} size={30} color={'black'} />
-                    <Text style={{ paddingHorizontal: 20 }}>New Group</Text>
+                    <Text style={{ paddingHorizontal: 20 }}>ایجاد گروه</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 10 }}>
+                <TouchableOpacity style={{ flexDirection: 'row-reverse', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 10 }}>
                     <Ionicons name={'md-add'} size={30} color={'black'} />
-                    <Text style={{ paddingHorizontal: 20 }}>New Channel</Text>
+                    <Text style={{ paddingHorizontal: 20 }}>ایجاد کانال</Text>
                 </TouchableOpacity>
             </View>
-            <Text style={{ paddingHorizontal: 10, paddingVertical: 5 }}>Sorted by Username</Text>
+            <Text style={{ paddingHorizontal: 10, paddingVertical: 5 }}>مرتب شده بر اساس نام کاربری</Text>
             <View style={{ backgroundColor: 'white' }}>
                 <FlatList
                     refreshing={refresh}
@@ -37,12 +37,12 @@ const ChatCreateScreen = props => {
                     data={contacts}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => (
-                        <TouchableOpacity onPress={callContactHandler} key={index} style={{ paddingHorizontal: 15, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', paddingVertical: 10 }}>
-                            <View style={{ width: '20%' }}>
+                        <TouchableOpacity onPress={callContactHandler} key={index} style={{ paddingHorizontal: 15, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row-reverse', paddingVertical: 10 }}>
+                            <View style={{ width: '15%', paddingHorizontal: 10 }}>
                                 <Image style={{ width: 50, height: 50, borderRadius: 25 }} source={{ uri: 'https://api.adorable.io/avatars/' + Math.ceil(Math.random() * 1000 + 1) }} />
                             </View>
-                            <View style={{ width: '70%' }}>
-                                <Text style={{ fontWeight: 'bold' }}>Reza Nader</Text>
+                            <View style={{ width: '85%', paddingHorizontal: 20 }}>
+                                <Text style={{ fontWeight: 'bold' }}>رضا نادری</Text>
                             </View>
                         </TouchableOpacity>
                     )}

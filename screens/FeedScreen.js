@@ -7,12 +7,12 @@ import FeedItem from '../components/FeedItem';
 
 function TabInnerScreen({ route, navigation }) {
     const { itemId } = route.params;
-    const [feeds, setFeeds] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    const [feeds, setFeeds] = useState(Array(Math.ceil(Math.random() * 9)).fill(0));
     const [refresh, setRefresh] = useState(false);
 
     const refreshHandler = () => {
         setRefresh(true);
-        setFeeds([11, 12, 13, 14, 15, 16, 17, 18, 19]);
+        setFeeds(Array(Math.ceil(Math.random() * 9)).fill(0));
         setRefresh(false);
     };
 
@@ -39,10 +39,12 @@ const FeedScreen = props => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity ><Ionicons name={'ios-search'} size={ 30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity style={{width: '80%'}}></TouchableOpacity>
                 <TouchableOpacity><Ionicons name={'ios-recording'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
+                initialRouteName="برترین ها"
                 tabBarOptions={{
                     activeTintColor: 'black',
                     inactiveTintColor: 'darkgrey',
@@ -55,10 +57,10 @@ const FeedScreen = props => {
                     },
                 }}
             >
-                <Tab.Screen name="Fars" component={TabInnerScreen} initialParams={{ itemId: 'FarsNews' }} />
-                <Tab.Screen name="Javan" component={TabInnerScreen} initialParams={{ itemId: 'Javan' }} />
-                <Tab.Screen name="Isna" component={TabInnerScreen} initialParams={{ itemId: 'Isna' }} />
-                <Tab.Screen name="Irinn" component={TabInnerScreen} initialParams={{ itemId: 'Irinn' }} />
+                <Tab.Screen name="خبرگزاری" component={TabInnerScreen} initialParams={{ itemId: 'فارس' }} />
+                <Tab.Screen name="اخبار ستاد" component={TabInnerScreen} initialParams={{ itemId: 'ستاد' }} />
+                <Tab.Screen name="اخبار داخلی" component={TabInnerScreen} initialParams={{ itemId: 'فرهنگی' }} />
+                <Tab.Screen name="برترین ها" component={TabInnerScreen} initialParams={{ itemId: 'جوان' }} />
             </Tab.Navigator>
         </View>
     );

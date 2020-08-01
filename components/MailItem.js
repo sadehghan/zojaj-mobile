@@ -4,16 +4,16 @@ import { Ionicons } from '@expo/vector-icons';
 
 const MailItem = props => {
     return (
-        <TouchableOpacity onPress={props.modalCaller} key={props.id} style={{ paddingHorizontal: 15, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', paddingVertical: 10 }}>
-            <View style={{ width: '20%' }}>
+        <TouchableOpacity onPress={props.modalCaller} key={props.id} style={{ paddingHorizontal: 15, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row-reverse', paddingVertical: 10 }}>
+            <View style={{ width: '15%', paddingHorizontal: 10 }}>
                 <Image style={{ width: 50, height: 50, borderRadius: 25 }} source={{ uri: 'https://api.adorable.io/avatars/' + Math.ceil(Math.random() * 1000 + 1) }} />
             </View>
-            <View style={{ width: '70%' }}>
-                <Text style={{ fontWeight: 'bold' }}>Jobinja.ir</Text>
-                <Text style={{ fontWeight: 'bold' }} numberOfLines={1}>35 Latest Job Opportunities from IranTa...</Text>
-                <Text numberOfLines={1}>Dear Saman, our system has identified t...</Text>
+            <View style={{ width: '75%' }}>
+                <Text style={{ fontWeight: 'bold' }}>ستاد بررسی شرایط</Text>
+                <Text style={{ fontWeight: 'bold' }} numberOfLines={1}>۳۵ گزارش دریافتی از ستاد اجرای فرمان امام که لازم الجرا</Text>
+                <Text numberOfLines={1}>سامان عزیز سلام در محتوای این اعلان وضعیت به صورت شدید</Text>
             </View>
-            <View style={{ alignItems: 'center', paddingLeft: 10 }}>
+            <View style={{ alignItems: 'center', paddingRight: 10 }}>
                 <Text style={{ fontSize: 10 }}>29 Jul</Text>
                 <TouchableOpacity style={{ paddingTop: 10 }}><Ionicons name={'ios-star-outline'} size={20} color={'black'} /></TouchableOpacity>
             </View>

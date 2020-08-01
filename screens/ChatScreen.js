@@ -7,17 +7,17 @@ import ChatItem from '../components/ChatItem';
 
 function TabInnerScreen({ route, navigation }) {
     const { itemId } = route.params;
-    const [mails, setMails] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    const [mails, setMails] = useState(Array(Math.ceil(Math.random() * 9)).fill(0));
     const [refresh, setRefresh] = useState(false);
 
     const refreshHandler = () => {
         setRefresh(true);
-        setMails([11, 12, 13, 14, 15, 16, 17, 18, 19]);
+        setMails(Array(Math.ceil(Math.random() * 9)).fill(0));
         setRefresh(false);
     };
 
     const callChatHandler = () => {
-        navigation.navigate('ChatContent', {itemId: 77});
+        navigation.navigate('ChatContent', { itemId: 77 });
     };
 
     return (
@@ -49,10 +49,11 @@ const ChatScreen = props => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
-                <TouchableOpacity onPress={callProfileHandler}><Image style={{ width: 34, height: 34, borderRadius: 17 }} source={{ uri: 'https://api.adorable.io/avatars/55' }} /></TouchableOpacity>
+                <TouchableOpacity style={{width: '80%'}} onPress={callProfileHandler}></TouchableOpacity>
                 <TouchableOpacity onPress={callCreateChatHandler}><Ionicons name={'md-add'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
+                initialRouteName="کانال"
                 tabBarOptions={{
                     activeTintColor: 'black',
                     inactiveTintColor: 'darkgrey',
@@ -65,9 +66,9 @@ const ChatScreen = props => {
                     },
                 }}
             >
-                <Tab.Screen name="Chats" component={TabInnerScreen} initialParams={{ itemId: 'Chat' }} />
-                <Tab.Screen name="Groups" component={TabInnerScreen} initialParams={{ itemId: 'Group' }} />
-                <Tab.Screen name="Chanels" component={TabInnerScreen} initialParams={{ itemId: 'Chanel' }} />
+                <Tab.Screen name="گفتگو" component={TabInnerScreen} initialParams={{ itemId: 'Chat' }} />
+                <Tab.Screen name="گروه" component={TabInnerScreen} initialParams={{ itemId: 'Group' }} />
+                <Tab.Screen name="کانال" component={TabInnerScreen} initialParams={{ itemId: 'Chanel' }} />
             </Tab.Navigator>
         </View>
     );

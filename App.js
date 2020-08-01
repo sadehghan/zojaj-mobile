@@ -33,33 +33,34 @@ const Tab = createBottomTabNavigator();
 function HomeTabs() {
   return (
     <Tab.Navigator
+      initialRouteName="گفتگو"
       tabBarOptions={{
         activeTintColor: 'black',
         inactiveTintColor: 'darkgrey',
       }}
     >
       <Tab.Screen
-        name="Feed"
+        name="اخبار"
         component={FeedScreen}
         options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'md-paper'} color={color} size={size} badgeCount={0} />) }}
       />
       <Tab.Screen
-        name="Mail"
+        name="کارتابل"
         component={MailScreen}
         options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-mail-open'} color={color} size={size} badgeCount={0} />) }}
       />
       <Tab.Screen
-        name="Chat"
+        name="گفتگو"
         component={ChatScreen}
         options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-chatbubbles'} color={color} size={size} badgeCount={0} />) }}
       />
       <Tab.Screen
-        name="Learn"
+        name="آموزش"
         component={LearnScreen}
         options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'md-book'} color={color} size={size} badgeCount={0} />) }}
       />
       <Tab.Screen
-        name="Share"
+        name="تولیدات"
         component={ShareScreen}
         options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'md-cloud-outline'} color={color} size={size} badgeCount={0} />) }}
       />

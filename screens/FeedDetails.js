@@ -6,22 +6,24 @@ const FeedDetails = props => {
     return (
         <View style={styles.container}>
             <View style={styles.commentInput}>
-                <View style={{ paddingHorizontal: 20, backgroundColor: 'white', width: '95%', height: '80%', borderRadius: 15, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <TextInput placeholder={'Add a Commeent ...'}></TextInput>
+                <View style={{ paddingHorizontal: 20, backgroundColor: 'white', width: '95%', height: '80%', borderRadius: 15, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row-reverse' }}>
+                    <TextInput placeholder={'نوشتن توضیح ...'}></TextInput>
                     <TouchableOpacity>
-                        <Text style={{ color: 'blue' }}>Post</Text>
+                        <Text style={{ color: 'blue' }}> ارسال</Text>
                     </TouchableOpacity>
                 </View>
             </View>
             <ScrollView>
                 <View style={{ alignItems: 'center' }}>
-                    <View style={{ width: '100%', flexDirection: 'row', paddingRight: 95, paddingVertical: 20, borderColor: 'lightgrey', borderBottomWidth: 0.5 }}>
+                    <View style={{ width: '100%', flexDirection: 'row-reverse', paddingRight: 95, paddingVertical: 20, borderColor: 'lightgrey', borderBottomWidth: 0.5 }}>
                         <View style={{ width: '20%', paddingHorizontal: 10, alignItems: 'center' }}>
                             <Image style={{ width: 30, height: 30, borderRadius: 15 }} source={{ uri: 'https://api.adorable.io/avatars/' + Math.ceil(Math.random() * 1000 + 1) }} />
                         </View>
                         <View style={{ paddingTop: 5 }}>
-                            <Text style={{ fontWeight: 'bold' }}>FarsNews</Text>
-                            <Text>{LONG_TEXT + LONG_TEXT}</Text>
+                            <Text style={{ fontWeight: 'bold' }}>خبرگزاری فارس</Text>
+                            <View style={{paddingTop: 10}}>
+                                <Text>{LONG_TEXT + LONG_TEXT}</Text>
+                            </View>
                             <Text style={{ color: 'lightgrey', fontSize: 10, paddingTop: 10 }}>27m</Text>
                         </View>
                     </View>
@@ -60,7 +62,7 @@ styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'row',
+        flexDirection: 'row-reverse',
         paddingHorizontal: 20,
     },
     commentInput: {

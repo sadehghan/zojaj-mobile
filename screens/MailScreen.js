@@ -7,12 +7,12 @@ import MailItem from '../components/MailItem';
 
 function TabInnerScreen({ route, navigation }) {
     const { itemId } = route.params;
-    const [mails, setMails] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    const [mails, setMails] = useState(Array(Math.ceil(Math.random() * 9)).fill(0));
     const [refresh, setRefresh] = useState(false);
 
     const refreshHandler = () => {
         setRefresh(true);
-        setMails([11, 12, 13, 14, 15, 16, 17, 18, 19]);
+        setMails(Array(Math.ceil(Math.random() * 9)).fill(0));
         setRefresh(false);
     };
 
@@ -42,10 +42,12 @@ const MailScreen = props => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity ><Ionicons name={'ios-search'} size={ 30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity style={{width: '80%'}}></TouchableOpacity>
                 <TouchableOpacity onPress={callCreateMailHandler}><Ionicons name={'md-add'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
+                initialRouteName="نخوانده"
                 tabBarOptions={{
                     activeTintColor: 'black',
                     inactiveTintColor: 'darkgrey',
@@ -58,10 +60,10 @@ const MailScreen = props => {
                     },
                 }}
             >
-                <Tab.Screen name="All" component={TabInnerScreen} initialParams={{ itemId: 'All' }} />
-                <Tab.Screen name="Sent" component={TabInnerScreen} initialParams={{ itemId: 'Sent' }} />
-                <Tab.Screen name="Important" component={TabInnerScreen} initialParams={{ itemId: 'Important' }} />
-                <Tab.Screen name="Unread" component={TabInnerScreen} initialParams={{ itemId: 'Unread' }} />
+                <Tab.Screen name="همه" component={TabInnerScreen} initialParams={{ itemId: 'All' }} />
+                <Tab.Screen name="ارسالی" component={TabInnerScreen} initialParams={{ itemId: 'Sent' }} />
+                <Tab.Screen name="مهم" component={TabInnerScreen} initialParams={{ itemId: 'Important' }} />
+                <Tab.Screen name="نخوانده" component={TabInnerScreen} initialParams={{ itemId: 'Unread' }} />
             </Tab.Navigator>
         </View>
     );
