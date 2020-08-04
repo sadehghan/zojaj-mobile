@@ -14,6 +14,7 @@ import LearnScreen from './screens/LearnScreen';
 import ShareScreen from './screens/ShareScreen';
 import FeedDetails from './screens/FeedDetails';
 import MailDetails from './screens/MailDetails';
+import ShareDetails from './screens/ShareDetails';
 import MailCreateScreen from './screens/MailCreateScreen';
 import ChatContentScreen from './screens/ChatContentScreen';
 import ChatCreateScreen from './screens/ChatCreateScreen';
@@ -118,6 +119,7 @@ export default function App() {
         <Stack.Screen name="MailCreate" component={MailCreateScreen} options={{ headerTitle: props => <MailCreateLogoTitle {...props} /> }} />
         <Stack.Screen name="ChatContent" component={ChatContentScreen} />
         <Stack.Screen name="ChatCreate" component={ChatCreateScreen} />
+        <Stack.Screen name="ShareDetails" component={ShareDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

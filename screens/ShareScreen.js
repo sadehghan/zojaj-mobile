@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, FlatList, Picker } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -35,6 +35,8 @@ function TabInnerScreen({ route, navigation }) {
 const ShareScreen = props => {
 
     const Tab = createMaterialTopTabNavigator();
+    const [type, setType] = useState('انیمیشن');
+    const [date, setDate] = useState('الان');
 
     return (
         <View style={styles.container}>
@@ -42,6 +44,30 @@ const ShareScreen = props => {
                 <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
                 <TouchableOpacity style={{ width: '80%' }}></TouchableOpacity>
                 <TouchableOpacity><Ionicons name={'ios-recording'} size={30} color={'black'} /></TouchableOpacity>
+            </View>
+            <View style={{backgroundColor: 'white', flexDirection: 'row-reverse'}}>
+                <Picker
+                    selectedValue={type}
+                    style={{ paddingHorizontal: 30, height: 40, width: '50%' }}
+                    mode={'dialog'}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setType(itemValue)
+                    }
+                >
+                    <Picker.Item label="انیمیشن" value="java" />
+                    <Picker.Item label="عکس" value="js" />
+                </Picker>
+                <Picker
+                    selectedValue={date}
+                    style={{ paddingHorizontal: 30, height: 40, width: '50%' }}
+                    mode={'dialog'}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setDate(itemValue)
+                    }
+                >
+                    <Picker.Item label="الان" value="java" />
+                    <Picker.Item label="هفته گذشته" value="js" />
+                </Picker>
             </View>
             <Tab.Navigator
                 initialRouteName="جدید"
@@ -68,7 +94,7 @@ const ShareScreen = props => {
 styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        //backgroundColor: 'white',
     },
     header: {
         height: '9%',
