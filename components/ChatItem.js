@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 const ChatItem = props => {
     return (
-        <TouchableOpacity onPress={props.chatCaller} key={props.id} style={{ paddingHorizontal: 5, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row-reverse', paddingVertical: 10 }}>
+        <TouchableOpacity onPress={props.modalCaller} key={props.id} style={{ paddingHorizontal: 5, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row-reverse', paddingVertical: 10 }}>
             <View style={{ width: '15%' }}>
                 <Image style={{ width: 50, height: 50, borderRadius: 25 }} source={{ uri: 'https://api.adorable.io/avatars/' + Math.ceil(Math.random() * 1000 + 1) }} />
             </View>

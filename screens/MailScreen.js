@@ -4,16 +4,17 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import MailItem from '../components/MailItem';
+import TabInnerScreen from '../components/TabInnerScreen';
 
-function TabInnerScreen({ route, navigation }) {
+import { FEED_LIST } from '../constants/DataBaseConstants';
+
+function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
-    const [mails, setMails] = useState(Array(Math.ceil(Math.random() * 9)).fill(0));
-    const [refresh, setRefresh] = useState(false);
 
-    const refreshHandler = () => {
-        setRefresh(true);
-        setMails(Array(Math.ceil(Math.random() * 9)).fill(0));
-        setRefresh(false);
+    const ApiRequest = async thePage => {
+        const LIMIT = 10;
+        await setTimeout(() => { }, 1500);
+        return FEED_LIST.slice((thePage - 1) * LIMIT, thePage * LIMIT);
     };
 
     const callHandler = () => {
@@ -21,14 +22,7 @@ function TabInnerScreen({ route, navigation }) {
     };
 
     return (
-        <FlatList
-            refreshing={refresh}
-            onRefresh={refreshHandler}
-            data={mails}
-            keyExtractor={(item, index) => index.toString()}
-            style={{ flex: 1 }}
-            renderItem={({ item, index }) => (<MailItem id={index} modalCaller={callHandler} dataType={itemId} />)}
-        />
+        <TabInnerScreen itemId={itemId} callHandler={callHandler} listItem={MailItem} apiRequest={ApiRequest} />
     );
 }
 
@@ -43,10 +37,11 @@ const MailScreen = props => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
-                <TouchableOpacity style={{width: '80%'}}></TouchableOpacity>
+                <TouchableOpacity style={{ width: '80%' }}></TouchableOpacity>
                 <TouchableOpacity onPress={callCreateMailHandler}><Ionicons name={'md-add'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
+                lazy={true}
                 initialRouteName="نخوانده"
                 tabBarOptions={{
                     activeTintColor: 'black',
@@ -60,10 +55,10 @@ const MailScreen = props => {
                     },
                 }}
             >
-                <Tab.Screen name="همه" component={TabInnerScreen} initialParams={{ itemId: 'All' }} />
-                <Tab.Screen name="ارسالی" component={TabInnerScreen} initialParams={{ itemId: 'Sent' }} />
-                <Tab.Screen name="مهم" component={TabInnerScreen} initialParams={{ itemId: 'Important' }} />
-                <Tab.Screen name="نخوانده" component={TabInnerScreen} initialParams={{ itemId: 'Unread' }} />
+                <Tab.Screen name="همه" component={TabInnerScreenWrapper} initialParams={{ itemId: 'All' }} />
+                <Tab.Screen name="ارسالی" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Sent' }} />
+                <Tab.Screen name="مهم" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Important' }} />
+                <Tab.Screen name="نخوانده" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Unread' }} />
             </Tab.Navigator>
         </View>
     );

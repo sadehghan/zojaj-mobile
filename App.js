@@ -15,9 +15,11 @@ import ShareScreen from './screens/ShareScreen';
 import FeedDetails from './screens/FeedDetails';
 import MailDetails from './screens/MailDetails';
 import ShareDetails from './screens/ShareDetails';
+import CourseDetails from './screens/CourseDetails';
 import MailCreateScreen from './screens/MailCreateScreen';
 import ChatContentScreen from './screens/ChatContentScreen';
 import ChatCreateScreen from './screens/ChatCreateScreen';
+import UploadScreen from './screens/UploadScreen'
 
 I18nManager.forceRTL(false);
 
@@ -120,6 +122,8 @@ export default function App() {
         <Stack.Screen name="ChatContent" component={ChatContentScreen} />
         <Stack.Screen name="ChatCreate" component={ChatCreateScreen} />
         <Stack.Screen name="ShareDetails" component={ShareDetails} />
+        <Stack.Screen name="UploadScreen" component={UploadScreen} />
+        <Stack.Screen name="CourseDetails" component={CourseDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

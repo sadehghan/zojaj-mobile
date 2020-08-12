@@ -4,16 +4,17 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import CourseItem from '../components/CourseItem';
+import TabInnerScreen from '../components/TabInnerScreen';
 
-function TabInnerScreen({ route, navigation }) {
+import { FEED_LIST } from '../constants/DataBaseConstants';
+
+function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
-    const [courses, setCourses] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-    const [refresh, setRefresh] = useState(false);
 
-    const refreshHandler = () => {
-        setRefresh(true);
-        setCourses([11, 12, 13, 14, 15, 16, 17, 18, 19]);
-        setRefresh(false);
+    const ApiRequest = async thePage => {
+        const LIMIT = 5;
+        await setTimeout(() => { }, 1500);
+        return FEED_LIST.slice((thePage - 1) * LIMIT, thePage * LIMIT);
     };
 
     const callHandler = () => {
@@ -21,14 +22,7 @@ function TabInnerScreen({ route, navigation }) {
     };
 
     return (
-        <FlatList
-            refreshing={refresh}
-            onRefresh={refreshHandler}
-            data={courses}
-            keyExtractor={(item, index) => index.toString()}
-            style={{ flex: 1 }}
-            renderItem={({ item, index }) => (<CourseItem id={index} modalCaller={callHandler} dataType={itemId} />)}
-        />
+        <TabInnerScreen itemId={itemId} callHandler={callHandler} listItem={CourseItem} apiRequest={ApiRequest} />
     );
 }
 
@@ -39,12 +33,13 @@ const LearnScreen = props => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity ><Ionicons name={'ios-search'} size={ 30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
                 <TouchableOpacity style={{ width: '80%' }}></TouchableOpacity>
-                <TouchableOpacity><Ionicons name={'ios-recording'} size={30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity><Ionicons name={'ios-add'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
-                initialRouteName="جدید"
+                lazy={true}
+                initialRouteName="نشان شده"
                 tabBarOptions={{
                     activeTintColor: 'black',
                     inactiveTintColor: 'darkgrey',
@@ -57,9 +52,9 @@ const LearnScreen = props => {
                     },
                 }}
             >
-                <Tab.Screen name="جدید" component={TabInnerScreen} initialParams={{ itemId: 'جدید' }} />
-                <Tab.Screen name="برترین" component={TabInnerScreen} initialParams={{ itemId: 'برترین' }} />
-                <Tab.Screen name="نشان شده" component={TabInnerScreen} initialParams={{ itemId: 'نشان' }} />
+                <Tab.Screen name="جدید" component={TabInnerScreenWrapper} initialParams={{ itemId: 'جدید' }} />
+                <Tab.Screen name="برترین" component={TabInnerScreenWrapper} initialParams={{ itemId: 'برترین' }} />
+                <Tab.Screen name="نشان شده" component={TabInnerScreenWrapper} initialParams={{ itemId: 'نشان' }} />
             </Tab.Navigator>
         </View>
     );

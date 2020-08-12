@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import FeedItem from '../components/FeedItem';
+import TabInnerScreen from '../components/TabInnerScreen';
 
-function TabInnerScreen({ route, navigation }) {
+import { FEED_LIST } from '../constants/DataBaseConstants';
+
+function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
-    const [feeds, setFeeds] = useState(Array(Math.ceil(Math.random() * 9)).fill(0));
-    const [refresh, setRefresh] = useState(false);
 
-    const refreshHandler = () => {
-        setRefresh(true);
-        setFeeds(Array(Math.ceil(Math.random() * 9)).fill(0));
-        setRefresh(false);
+    const ApiRequest = async thePage => {
+        const LIMIT = 5;
+        await setTimeout(() => { }, 1500);
+        return FEED_LIST.slice((thePage - 1) * LIMIT, thePage * LIMIT);
     };
 
     const callHandler = () => {
@@ -21,14 +22,7 @@ function TabInnerScreen({ route, navigation }) {
     };
 
     return (
-        <FlatList
-            refreshing={refresh}
-            onRefresh={refreshHandler}
-            data={feeds}
-            keyExtractor={(item, index) => index.toString()}
-            style={{ flex: 1 }}
-            renderItem={({ item, index }) => (<FeedItem id={index} modalCaller={callHandler} dataType={itemId} />)}
-        />
+        <TabInnerScreen itemId={itemId} callHandler={callHandler} listItem={FeedItem} apiRequest={ApiRequest}/>
     );
 }
 
@@ -39,11 +33,12 @@ const FeedScreen = props => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity ><Ionicons name={'ios-search'} size={ 30} color={'black'} /></TouchableOpacity>
-                <TouchableOpacity style={{width: '80%'}}></TouchableOpacity>
+                <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity style={{ width: '80%' }}></TouchableOpacity>
                 <TouchableOpacity><Ionicons name={'ios-recording'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
+                lazy={true}
                 initialRouteName="برترین ها"
                 tabBarOptions={{
                     activeTintColor: 'black',
@@ -57,10 +52,10 @@ const FeedScreen = props => {
                     },
                 }}
             >
-                <Tab.Screen name="خبرگزاری" component={TabInnerScreen} initialParams={{ itemId: 'فارس' }} />
-                <Tab.Screen name="اخبار ستاد" component={TabInnerScreen} initialParams={{ itemId: 'ستاد' }} />
-                <Tab.Screen name="اخبار داخلی" component={TabInnerScreen} initialParams={{ itemId: 'فرهنگی' }} />
-                <Tab.Screen name="برترین ها" component={TabInnerScreen} initialParams={{ itemId: 'جوان' }} />
+                <Tab.Screen name="خبرگزاری" component={TabInnerScreenWrapper} initialParams={{ itemId: 'فارس' }} />
+                <Tab.Screen name="اخبار ستاد" component={TabInnerScreenWrapper} initialParams={{ itemId: 'ستاد' }} />
+                <Tab.Screen name="اخبار داخلی" component={TabInnerScreenWrapper} initialParams={{ itemId: 'فرهنگی' }} />
+                <Tab.Screen name="برترین ها" component={TabInnerScreenWrapper} initialParams={{ itemId: 'جوان' }} />
             </Tab.Navigator>
         </View>
     );

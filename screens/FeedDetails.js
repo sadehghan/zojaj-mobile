@@ -7,7 +7,7 @@ const FeedDetails = props => {
         <View style={styles.container}>
             <View style={styles.commentInput}>
                 <View style={{ paddingHorizontal: 20, backgroundColor: 'white', width: '95%', height: '80%', borderRadius: 15, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row-reverse' }}>
-                    <TextInput placeholder={'نوشتن توضیح ...'}></TextInput>
+                    <TextInput placeholder={'نوشتن توضیح . ..'}></TextInput>
                     <TouchableOpacity>
                         <Text style={{ color: 'blue' }}> ارسال</Text>
                     </TouchableOpacity>

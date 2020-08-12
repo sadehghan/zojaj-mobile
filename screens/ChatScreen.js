@@ -4,31 +4,25 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import ChatItem from '../components/ChatItem';
+import TabInnerScreen from '../components/TabInnerScreen';
 
-function TabInnerScreen({ route, navigation }) {
+import { FEED_LIST } from '../constants/DataBaseConstants';
+
+function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
-    const [mails, setMails] = useState(Array(Math.ceil(Math.random() * 9)).fill(0));
-    const [refresh, setRefresh] = useState(false);
 
-    const refreshHandler = () => {
-        setRefresh(true);
-        setMails(Array(Math.ceil(Math.random() * 9)).fill(0));
-        setRefresh(false);
+    const ApiRequest = async thePage => {
+        const LIMIT = 10;
+        await setTimeout(() => { }, 1500);
+        return FEED_LIST.slice((thePage - 1) * LIMIT, thePage * LIMIT);
     };
 
-    const callChatHandler = () => {
+    const callHandler = () => {
         navigation.navigate('ChatContent', { itemId: 77 });
     };
 
     return (
-        <FlatList
-            refreshing={refresh}
-            onRefresh={refreshHandler}
-            data={mails}
-            keyExtractor={(item, index) => index.toString()}
-            style={{ flex: 1 }}
-            renderItem={({ item, index }) => (<ChatItem id={index} chatCaller={callChatHandler} dataType={itemId} />)}
-        />
+        <TabInnerScreen itemId={itemId} callHandler={callHandler} listItem={ChatItem} apiRequest={ApiRequest} />
     );
 }
 
@@ -48,11 +42,12 @@ const ChatScreen = props => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity ><Ionicons name={'ios-search'} size={ 30} color={'black'} /></TouchableOpacity>
-                <TouchableOpacity style={{width: '80%'}} onPress={callProfileHandler}></TouchableOpacity>
+                <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
+                <TouchableOpacity style={{ width: '80%' }} onPress={callProfileHandler}></TouchableOpacity>
                 <TouchableOpacity onPress={callCreateChatHandler}><Ionicons name={'md-add'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
+                lazy={true}
                 initialRouteName="کانال"
                 tabBarOptions={{
                     activeTintColor: 'black',
@@ -66,9 +61,9 @@ const ChatScreen = props => {
                     },
                 }}
             >
-                <Tab.Screen name="گفتگو" component={TabInnerScreen} initialParams={{ itemId: 'Chat' }} />
-                <Tab.Screen name="گروه" component={TabInnerScreen} initialParams={{ itemId: 'Group' }} />
-                <Tab.Screen name="کانال" component={TabInnerScreen} initialParams={{ itemId: 'Chanel' }} />
+                <Tab.Screen name="گفتگو" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Chat' }} />
+                <Tab.Screen name="گروه" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Group' }} />
+                <Tab.Screen name="کانال" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Chanel' }} />
             </Tab.Navigator>
         </View>
     );
