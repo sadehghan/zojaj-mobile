@@ -24,6 +24,7 @@ const TabInnerScreen = props => {
         let document = await props.apiRequest(p);
         setData([...data, ...document]);
         setRefresh(false);
+        console.log(data);
     };
 
     useEffect(() => {
@@ -32,6 +33,7 @@ const TabInnerScreen = props => {
 
     const onRefresh = () => {
         FetchData();
+        console.log('fetch', data);
     };
 
     const loadMore = () => {
@@ -39,12 +41,6 @@ const TabInnerScreen = props => {
             <View>
                 <ActivityIndicator animating={refresh} />
             </View>
-        );
-    };
-
-    const renderItem = ({ item }) => {
-        return (
-            <props.listItem id={item.id} modalCaller={props.callHandler} dataType={props.itemId} />
         );
     };
 
@@ -57,7 +53,7 @@ const TabInnerScreen = props => {
             <FlatList
                 ref={flatListRef}
                 keyExtractor={keyExtractor}
-                renderItem={renderItem}
+                renderItem={props.render}
                 data={data}
                 onEndReached={FetchMoreData}
                 onEndReachedThreshold={0.1}
@@ -71,12 +67,12 @@ const TabInnerScreen = props => {
     }, [data, refresh]);
 };
 
-    styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-    });
+styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});
 
-    export default TabInnerScreen;
+export default TabInnerScreen;

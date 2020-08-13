@@ -5,24 +5,39 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 import MailItem from '../components/MailItem';
 import TabInnerScreen from '../components/TabInnerScreen';
-
-import { FEED_LIST } from '../constants/DataBaseConstants';
+import { fetchMails } from '../components/Connections';
 
 function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
 
     const ApiRequest = async thePage => {
         const LIMIT = 10;
-        await setTimeout(() => { }, 1500);
-        return FEED_LIST.slice((thePage - 1) * LIMIT, thePage * LIMIT);
+        result = await fetchMails(itemId, thePage, LIMIT);
+        return result;
     };
 
     const callHandler = () => {
         navigation.navigate('MailDetails');
     };
 
+    const renderItem = ({ item }) => {
+        console.log(item.logo, item.image);
+
+        return (
+            <MailItem
+                id={item.mailId}
+                modalCaller={callHandler}
+                logo={item.logo}
+                from={item.from}
+                title={item.title}
+                text={item.text}
+                date={item.date}
+            />
+        );
+    };
+
     return (
-        <TabInnerScreen itemId={itemId} callHandler={callHandler} listItem={MailItem} apiRequest={ApiRequest} />
+        <TabInnerScreen render={renderItem} apiRequest={ApiRequest} />
     );
 }
 

@@ -36,7 +36,8 @@ const Tab = createBottomTabNavigator();
 function HomeTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="گفتگو"
+      lazy={true}
+      initialRouteName="اخبار"
       tabBarOptions={{
         activeTintColor: 'black',
         inactiveTintColor: 'darkgrey',

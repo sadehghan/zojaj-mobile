@@ -5,24 +5,43 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 import FeedItem from '../components/FeedItem';
 import TabInnerScreen from '../components/TabInnerScreen';
-
-import { FEED_LIST } from '../constants/DataBaseConstants';
+import { fetchCategoryFeeds } from '../components/Connections';
 
 function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
 
     const ApiRequest = async thePage => {
         const LIMIT = 5;
-        await setTimeout(() => { }, 1500);
-        return FEED_LIST.slice((thePage - 1) * LIMIT, thePage * LIMIT);
+        result = await fetchCategoryFeeds(itemId, thePage, LIMIT);
+        return result;
     };
 
     const callHandler = () => {
         navigation.navigate('FeedDetails');
     };
 
+    const renderItem = ({ item }) => {
+        console.log(item.logo, item.image);
+
+        return (
+            <FeedItem
+                id={item.newsId}
+                modalCaller={callHandler}
+                from={item.from}
+                logo={item.logo}
+                image={item.image}
+                title={item.title}
+                desc={item.description}
+                likes={item.likeNo}
+                commentsNo={item.commentsNo}
+                comments={item.comments}
+                date={item.date}
+            />
+        );
+    };
+
     return (
-        <TabInnerScreen itemId={itemId} callHandler={callHandler} listItem={FeedItem} apiRequest={ApiRequest} />
+        <TabInnerScreen render={renderItem} apiRequest={ApiRequest} />
     );
 }
 
@@ -38,7 +57,7 @@ const FeedScreen = props => {
             </View>
             <Tab.Navigator
                 lazy={true}
-                initialRouteName="برترین ها"
+                initialRouteName="خبرگزاری"
                 tabBarOptions={{
                     activeTintColor: 'black',
                     inactiveTintColor: 'darkgrey',
@@ -51,10 +70,9 @@ const FeedScreen = props => {
                     },
                 }}
             >
-                <Tab.Screen name="خبرگزاری" component={TabInnerScreenWrapper} initialParams={{ itemId: 'فارس' }} />
-                <Tab.Screen name="اخبار ستاد" component={TabInnerScreenWrapper} initialParams={{ itemId: 'ستاد' }} />
-                <Tab.Screen name="اخبار داخلی" component={TabInnerScreenWrapper} initialParams={{ itemId: 'فرهنگی' }} />
-                <Tab.Screen name="برترین ها" component={TabInnerScreenWrapper} initialParams={{ itemId: 'جوان' }} />
+                <Tab.Screen name="خبرگزاری" component={TabInnerScreenWrapper} initialParams={{ itemId: 'public' }} />
+                <Tab.Screen name="اخبار ستاد" component={TabInnerScreenWrapper} initialParams={{ itemId: 'setad' }} />
+                <Tab.Screen name="اخبار داخلی" component={TabInnerScreenWrapper} initialParams={{ itemId: 'internal' }} />
             </Tab.Navigator>
         </View>
     );
