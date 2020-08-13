@@ -35,9 +35,8 @@ const MailScreen = props => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '9%', paddingTop: 30, backgroundColor: 'white', paddingHorizontal: 30, }}>
                 <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
-                <TouchableOpacity style={{ width: '80%' }}></TouchableOpacity>
                 <TouchableOpacity onPress={callCreateMailHandler}><Ionicons name={'md-add'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator

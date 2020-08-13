@@ -22,7 +22,7 @@ function TabInnerScreenWrapper({ route, navigation }) {
     };
 
     return (
-        <TabInnerScreen itemId={itemId} callHandler={callHandler} listItem={FeedItem} apiRequest={ApiRequest}/>
+        <TabInnerScreen itemId={itemId} callHandler={callHandler} listItem={FeedItem} apiRequest={ApiRequest} />
     );
 }
 
@@ -32,9 +32,8 @@ const FeedScreen = props => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '9%', paddingTop: 30, backgroundColor: 'white', paddingHorizontal: 30, }}>
                 <TouchableOpacity ><Ionicons name={'ios-search'} size={30} color={'black'} /></TouchableOpacity>
-                <TouchableOpacity style={{ width: '80%' }}></TouchableOpacity>
                 <TouchableOpacity><Ionicons name={'ios-recording'} size={30} color={'black'} /></TouchableOpacity>
             </View>
             <Tab.Navigator
@@ -67,12 +66,12 @@ styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         height: '9%',
         paddingTop: 30,
         backgroundColor: 'white',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
         paddingHorizontal: 30,
     },
     tabBar: {

@@ -5,9 +5,20 @@ import { LONG_TEXT, COMMENTS } from '../constants/TextConstants';
 const FeedDetails = props => {
     return (
         <View style={styles.container}>
-            <View style={styles.commentInput}>
+            <View style={{
+                height: 60,
+                // paddingTop: 30,
+                backgroundColor: 'white',
+                borderColor: 'darkgrey',
+                borderBottomWidth: 0.4,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+                paddingHorizontal: 20,
+                backgroundColor: 'lightgrey'
+            }}>
                 <View style={{ paddingHorizontal: 20, backgroundColor: 'white', width: '95%', height: '80%', borderRadius: 15, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row-reverse' }}>
-                    <TextInput placeholder={'نوشتن توضیح . ..'}></TextInput>
+                    <TextInput placeholder={'نوشتن توضیح ...'}></TextInput>
                     <TouchableOpacity>
                         <Text style={{ color: 'blue' }}> ارسال</Text>
                     </TouchableOpacity>
@@ -21,7 +32,7 @@ const FeedDetails = props => {
                         </View>
                         <View style={{ paddingTop: 5 }}>
                             <Text style={{ fontWeight: 'bold' }}>خبرگزاری فارس</Text>
-                            <View style={{paddingTop: 10}}>
+                            <View style={{ paddingTop: 10 }}>
                                 <Text>{LONG_TEXT + LONG_TEXT}</Text>
                             </View>
                             <Text style={{ color: 'lightgrey', fontSize: 10, paddingTop: 10 }}>27m</Text>
