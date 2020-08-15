@@ -30,8 +30,9 @@ export const FEEDS = [
 ];
 
 export const MAILS = [
-    { mailId: '1', fromUserId: '1', toUserId: '2', title: 'TITLE', text: 'TEXT', date: 12345, isRead: true, isImportant: false },
-    { mailId: '2', fromUserId: '2', toUserId: '1', title: 'TITLE', text: 'TEXT', date: 12345 },
+    { mailId: '1', fromUserId: '1', toUserId: '2', title: 'TITLE', text: 'TEXT', date: 1234, isRead: true, isImportant: false },
+    { mailId: '2', fromUserId: '2', toUserId: '1', title: 'TITLE', text: 'TEXT', date: 5678, isRead: true, isImportant: false },
+    { mailId: '3', fromUserId: '2', toUserId: '1', title: 'TITLE', text: 'TEXT', date: 9101, isRead: true, isImportant: false },
 ];
 
 export const CHATS = [
@@ -51,5 +52,5 @@ export const COURSES = [
 ]
 
 export const USERS = [
-    { userId: '1', bookmarkNews: ['1', '2'], unreadMails: ['1', '2'], importantMails: ['1', '2'], chatIds: ['1', '2', '3'], bookmarkCourses: ['1', '2', '3'], bookmarkContent: ['1', '2', '3'] }
+    { userId: '1', bookmarkNews: ['1'], unreadMails: ['3'], importantMails: ['2'], chatIds: ['1', '2', '3'], bookmarkCourses: ['1', '2', '3'], bookmarkContent: ['1', '2', '3'] }
 ]

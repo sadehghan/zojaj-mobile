@@ -24,7 +24,6 @@ const TabInnerScreen = props => {
         let document = await props.apiRequest(p);
         setData([...data, ...document]);
         setRefresh(false);
-        console.log(data);
     };
 
     useEffect(() => {
@@ -33,7 +32,6 @@ const TabInnerScreen = props => {
 
     const onRefresh = () => {
         FetchData();
-        console.log('fetch', data);
     };
 
     const loadMore = () => {

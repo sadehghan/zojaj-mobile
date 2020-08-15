@@ -21,8 +21,6 @@ function TabInnerScreenWrapper({ route, navigation }) {
     };
 
     const renderItem = ({ item }) => {
-        console.log(item.logo, item.image);
-
         return (
             <FeedItem
                 id={item.newsId}

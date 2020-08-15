@@ -21,17 +21,17 @@ function TabInnerScreenWrapper({ route, navigation }) {
     };
 
     const renderItem = ({ item }) => {
-        console.log(item.logo, item.image);
-
         return (
             <MailItem
                 id={item.mailId}
                 modalCaller={callHandler}
-                logo={item.logo}
-                from={item.from}
+                //logo={item.logo}
+                from={item.fromUserId}
                 title={item.title}
                 text={item.text}
                 date={item.date}
+                isRead={item.isRead}
+                isImportant={item.isImportant}
             />
         );
     };
@@ -56,7 +56,7 @@ const MailScreen = props => {
             </View>
             <Tab.Navigator
                 lazy={true}
-                initialRouteName="نخوانده"
+                initialRouteName="همه"
                 tabBarOptions={{
                     activeTintColor: 'black',
                     inactiveTintColor: 'darkgrey',
@@ -69,10 +69,10 @@ const MailScreen = props => {
                     },
                 }}
             >
-                <Tab.Screen name="همه" component={TabInnerScreenWrapper} initialParams={{ itemId: 'All' }} />
+                <Tab.Screen name="همه" component={TabInnerScreenWrapper} initialParams={{ itemId: 'ALL' }} />
                 <Tab.Screen name="ارسالی" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Sent' }} />
-                <Tab.Screen name="مهم" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Important' }} />
-                <Tab.Screen name="نخوانده" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Unread' }} />
+                <Tab.Screen name="مهم" component={TabInnerScreenWrapper} initialParams={{ itemId: 'IMPORTANT' }} />
+                <Tab.Screen name="نخوانده" component={TabInnerScreenWrapper} initialParams={{ itemId: 'UNREAD' }} />
             </Tab.Navigator>
         </View>
     );
