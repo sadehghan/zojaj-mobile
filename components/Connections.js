@@ -1,11 +1,5 @@
 import { FEEDS, MAILS, USERS } from '../constants/DataBaseConstants';
 
-export const fetchCategoryFeeds = async (category, thePage, limit) => {
-    await setTimeout(() => { }, 15);
-    let feeds = FEEDS.filter(item => item.category == category);
-    return feeds.slice((thePage - 1) * limit, thePage * limit);
-};
-
 export const fetchMails = async (category, thePage, limit) => {
     const USER_ID = '1';
     await setTimeout(() => { }, 15);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -9,14 +9,17 @@ const FeedItem = props => {
         <View key={props.id}>
             <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 7, paddingHorizontal: 15 }}>
                 <View style={{ flexDirection: 'row-reverse', justifyContent: "space-between", alignItems: 'center' }}>
-                    <Image style={{ width: 30, height: 30, borderRadius: 15 }} source={{ uri: props.logo }} />
+                    <Image
+                        style={{ width: 30, height: 30, borderRadius: 15 }}
+                        source={{ uri: 'http://192.168.1.151:3000/files/feeds/logos/' + props.from, headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhZGVoZ2hhbiIsInBhc3N3b3JkIjoiJDJiJDEwJFF5TjBUVGhjdHUzWmVBNmsvVkEzVk9kQ2NnOGFjMy5BV25JeVJ1ay4wTXUzZEEyaE52S0RhIiwiaWF0IjoxNTk3OTc1NDY4LCJleHAiOjE1OTc5Nzg0Njh9.P-hti6sWwJVHtsb5KhhQ6WFoXELnkHl7HnQ4M1dKPRs' } }}
+                    />
                     <Text style={{ paddingHorizontal: 8, fontWeight: 'bold' }}>{props.from}</Text>
                 </View>
             </View>
             <View>
                 <TouchableOpacity onPress={props.modalCaller}>
                     <Image
-                        source={{ uri: props.image }}
+                        source={{ uri: 'http://192.168.1.151:3000/files/feeds/images/' + props.id, headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhZGVoZ2hhbiIsInBhc3N3b3JkIjoiJDJiJDEwJFF5TjBUVGhjdHUzWmVBNmsvVkEzVk9kQ2NnOGFjMy5BV25JeVJ1ay4wTXUzZEEyaE52S0RhIiwiaWF0IjoxNTk3OTc1NDY4LCJleHAiOjE1OTc5Nzg0Njh9.P-hti6sWwJVHtsb5KhhQ6WFoXELnkHl7HnQ4M1dKPRs' } }}
                         style={{ resizeMode: 'stretch', width: '100%', height: 275 }}
                     />
                 </TouchableOpacity>

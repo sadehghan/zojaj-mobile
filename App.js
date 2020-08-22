@@ -6,6 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import { isLogin } from './components/UserConnections';
+
 import IconWithBadge from './components/IconWithBadge';
 import FeedScreen from './screens/FeedScreen';
 import ChatScreen from './screens/ChatScreen';
@@ -20,6 +22,7 @@ import MailCreateScreen from './screens/MailCreateScreen';
 import ChatContentScreen from './screens/ChatContentScreen';
 import ChatCreateScreen from './screens/ChatCreateScreen';
 import UploadScreen from './screens/UploadScreen'
+import LoginScreen from './screens/LoginScreen'
 
 I18nManager.forceRTL(false);
 
@@ -110,8 +113,15 @@ function ChatLogoTitle({ route, navigation }) {
   );
 }
 
+function Login() {
+  console.log("LOGINGINGING PAGE");
+  return (
+    <LoginScreen></LoginScreen>
+  );
+}
 
-export default function App() {
+function Main() {
+  console.log("MAIN PAGE");
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -127,5 +137,13 @@ export default function App() {
         <Stack.Screen name="CourseDetails" component={CourseDetails} />
       </Stack.Navigator>
     </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <View>
+      {isLogin() ? <Main></Main> : <Login></Login>}
+    </View>
   );
 }

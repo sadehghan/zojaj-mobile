@@ -5,14 +5,14 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 import FeedItem from '../components/FeedItem';
 import TabInnerScreen from '../components/TabInnerScreen';
-import { fetchCategoryFeeds } from '../components/Connections';
+import { fetchFeedsbyCategory } from '../components/FeedsConnections';
 
 function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
 
     const ApiRequest = async thePage => {
         const LIMIT = 5;
-        result = await fetchCategoryFeeds(itemId, thePage, LIMIT);
+        result = await fetchFeedsbyCategory(itemId, thePage, LIMIT);
         return result;
     };
 
@@ -21,23 +21,24 @@ function TabInnerScreenWrapper({ route, navigation }) {
     };
 
     const renderItem = ({ item }) => {
+        console.log('ITEM');
         return (
             <FeedItem
-                id={item.newsId}
+                id={item._id}
                 modalCaller={callHandler}
-                from={item.from}
-                logo={item.logo}
-                image={item.image}
+                from={item.source}
+                // logo={item.logo}
+                // image={item.image}
                 title={item.title}
-                desc={item.description}
+                desc={item.news}
                 likes={item.likeNo}
                 commentsNo={item.commentsNo}
                 comments={item.comments}
-                date={item.date}
+                date={item.created}
             />
         );
     };
-
+    
     return (
         <TabInnerScreen render={renderItem} apiRequest={ApiRequest} />
     );
