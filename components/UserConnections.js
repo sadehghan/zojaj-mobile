@@ -1,118 +1,143 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import * as React from 'react';
 
-export const isLogin = async () => {
-    let result = await getAccessToken();
-    console.log('Check', result);
-    return result == null ? false : true;
-};
+export const AuthContext = React.createContext();
+
+const ACCESS_TOKEN_KEY = '@accessToken';
+const REFRESH_TOKEN_KEY = '@refreshToken';
+const USER_INFO_KEY = '@userInfo';
 
 const removeTokens = async () => {
     try {
-        await AsyncStorage.removeItem('@accessToken');
-        await AsyncStorage.removeItem('@refreshToken');
-    } catch (e) {
-        // saving error
+        await AsyncStorage.removeItem(ACCESS_TOKEN_KEY);
+        await AsyncStorage.removeItem(REFRESH_TOKEN_KEY);
+        return true;
+    } catch (error) {
+        console.log('removeTokens :: ', error.message);
+        return false;
     }
 };
 
-
-const storeAccessToken = async (value) => {
+export const storeUserInfo = async (info) => {
     try {
-        await AsyncStorage.setItem('@accessToken', value)
-    } catch (e) {
-        // saving error
+        const jsonValue = JSON.stringify(info)
+        await AsyncStorage.setItem(USER_INFO_KEY, jsonValue);
+        return true;
+    } catch (error) {
+        console.log('storeUserInfo :: ', error.message);
+        return false;
     }
 };
 
-const storeRefreshToken = async (value) => {
+export const getUserInfo = async () => {
     try {
-        await AsyncStorage.setItem('@refreshToken', value)
-    } catch (e) {
-        // saving error
+        const jsonValue = await AsyncStorage.getItem(USER_INFO_KEY);
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (error) {
+        console.log('getUserInfo :: ', error.message);
+        return null;
     }
 };
 
-export const getAccessToken = async (retrieve) => {
-    if (retrieve)
-        await retrieveAccessToken();
-
+const storeToken = async (key, token) => {
     try {
-        const value = await AsyncStorage.getItem('@accessToken')
+        await AsyncStorage.setItem(key, token);
+        return true;
+    } catch (error) {
+        console.log('storeToken :: ' + error.message + ' [ ' + key + ', ' + token + ' ]');
+        return false;
+    }
+};
+
+export const getToken = async (key) => {
+    try {
+        const value = await AsyncStorage.getItem(key);
         if (value !== null) {
             return value;
         }
-
         return null;
-    } catch (e) {
-        // error reading value
-    }
-};
-
-const getRefreshToken = async () => {
-    try {
-        const value = await AsyncStorage.getItem('@accessToken')
-        if (value !== null) {
-            return value;
-        }
-
+    } catch (error) {
+        console.log('getToken :: ', error.message);
         return null;
-    } catch (e) {
-        // error reading value
     }
 };
 
 export const login = async (username, password) => {
-    data = {
+    const user_data = {
         username: username,
         password: password,
     };
 
     try {
-        let response = await fetch('http://192.168.1.151:3000/users/login', {
+        const response = await fetch('http://192.168.1.151:3000/auth/login', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(user_data),
         });
-        let result = await response.json();
-        await storeAccessToken(result.accessToken);
-        await storeRefreshToken(result.refreshToken);
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('login :: ', result.message);
+            return false;
+        }
+
+        await storeToken(ACCESS_TOKEN_KEY, result.accessToken);
+        await storeToken(REFRESH_TOKEN_KEY, result.refreshToken);
+        await storeUserInfo({ userId: result.refreshToken, username: username });
         return true;
     } catch (error) {
-        console.log(error.message);
+        console.log('login :: ', error.message);
+        return false;
     }
 };
 
 export const logout = async () => {
     try {
-        let response = await fetch('http://192.168.1.151:3000/users/logout', {
+        const response = await fetch('http://192.168.1.151:3000/users/logout', {
             method: 'post',
         });
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('logout :: ', result.message);
+            return false;
+        }
+
         await removeTokens();
         return true;
     } catch (error) {
-        console.log(error.message);
+        console.log('logout :: ', error.message);
+        return false;
     }
 };
 
-const retrieveAccessToken = async () => {
-    data = {
-        token: getAccessToken()
+export const retrieveAccessToken = async () => {
+    const refresh_token = await getToken(REFRESH_TOKEN_KEY);
+    const data = {
+        token: refresh_token
     };
 
     try {
-        let response = await fetch('http://192.168.1.151:3000/users/token', {
+        const response = await fetch('http://192.168.1.151:3000/users/token', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
-        let result = await response.json();
-        await storeAccessToken(result.accessToken);
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('logout :: ', result.message);
+            return false;
+        }
+
+        await storeToken(ACCESS_TOKEN_KEY, result.accessToken);
         return true;
     } catch (error) {
-        console.log(error.message);
+        console.log('retrieveAccessToken :: ', error.message);
+        return false;
     }
 };

@@ -1,126 +1,181 @@
+import { getToken, ACCESS_TOKEN_KEY, getUserInfo } from './UserConnections';
+
 export const fetchFeedsbyCategory = async (category, thePage, limit) => {
-    data = {
+    const access_token = await getToken(ACCESS_TOKEN_KEY);
+    const data = {
         source: category,
         page: thePage,
         limit: limit
     };
+
     try {
-        let response = await fetch('http://192.168.1.151:3000/feeds/filter', {
+        const response = await fetch('http://192.168.1.151:3000/feeds/filter', {
             method: 'post',
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhZGVoZ2hhbiIsInBhc3N3b3JkIjoiJDJiJDEwJFF5TjBUVGhjdHUzWmVBNmsvVkEzVk9kQ2NnOGFjMy5BV25JeVJ1ay4wTXUzZEEyaE52S0RhIiwiaWF0IjoxNTk4MDI4NDgxLCJleHAiOjE1OTgwMzE0ODF9.1peFgABecCLZxHPpMI1khleAPwDG3Zp7RgOESrl9IvQ',
+                'Authorization': 'Bearer ' + access_token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
-        let result = await response.json();
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('fetchFeedsbyCategory :: ', result.message);
+            return null;
+        }
+
         return result;
     } catch (error) {
-        console.log(error.message);
+        console.log('fetchFeedsbyCategory :: ', error.message);
+        return null;
     }
 };
 
 export const fetchTopFeeds = async (limit) => {
-    data = {
+    const access_token = await getToken(ACCESS_TOKEN_KEY);
+    const data = {
         limit: limit
     };
+
     try {
-        let response = await fetch('http://192.168.1.151:3000/feeds/top', {
+        const response = await fetch('http://192.168.1.151:3000/feeds/top', {
             method: 'post',
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhZGVoZ2hhbiIsInBhc3N3b3JkIjoiJDJiJDEwJFF5TjBUVGhjdHUzWmVBNmsvVkEzVk9kQ2NnOGFjMy5BV25JeVJ1ay4wTXUzZEEyaE52S0RhIiwiaWF0IjoxNTk3OTc1NDY4LCJleHAiOjE1OTc5Nzg0Njh9.P-hti6sWwJVHtsb5KhhQ6WFoXELnkHl7HnQ4M1dKPRs',
+                'Authorization': 'Bearer ' + access_token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
-        let result = await response.json();
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('fetchTopFeeds :: ', result.message);
+            return null;
+        }
+
         return result;
     } catch (error) {
-        console.log(error.message);
+        console.log('fetchTopFeeds :: ', error.message);
+        return null;
     }
 };
 
 export const searchFeeds = async (word, limit) => {
-    data = {
+    const access_token = await getToken(ACCESS_TOKEN_KEY);
+    const data = {
         regex: word,
         limit: limit
     };
     try {
-        let response = await fetch('http://192.168.1.151:3000/feeds/search', {
+        const response = await fetch('http://192.168.1.151:3000/feeds/search', {
             method: 'post',
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhZGVoZ2hhbiIsInBhc3N3b3JkIjoiJDJiJDEwJFF5TjBUVGhjdHUzWmVBNmsvVkEzVk9kQ2NnOGFjMy5BV25JeVJ1ay4wTXUzZEEyaE52S0RhIiwiaWF0IjoxNTk3OTc1NDY4LCJleHAiOjE1OTc5Nzg0Njh9.P-hti6sWwJVHtsb5KhhQ6WFoXELnkHl7HnQ4M1dKPRs',
+                'Authorization': 'Bearer ' + access_token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
-        let result = await response.json();
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('searchFeeds :: ', result.message);
+            return null;
+        }
+
         return result;
     } catch (error) {
-        console.log(error.message);
+        console.log('searchFeeds :: ', error.message);
+        return null;
     }
 };
 
 export const likeFeeds = async (feedId) => {
-    const userId = fetchUserId();
-    data = {
-        likerId: userId
+    const access_token = await getToken(ACCESS_TOKEN_KEY);
+    const user = await getUserInfo();
+    const data = {
+        likerId: user.userId
     };
+
     try {
-        let response = await fetch('http://192.168.1.151:3000/feeds/like/' + feedId, {
+        const response = await fetch('http://192.168.1.151:3000/feeds/like/' + feedId, {
             method: 'post',
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhZGVoZ2hhbiIsInBhc3N3b3JkIjoiJDJiJDEwJFF5TjBUVGhjdHUzWmVBNmsvVkEzVk9kQ2NnOGFjMy5BV25JeVJ1ay4wTXUzZEEyaE52S0RhIiwiaWF0IjoxNTk3OTc1NDY4LCJleHAiOjE1OTc5Nzg0Njh9.P-hti6sWwJVHtsb5KhhQ6WFoXELnkHl7HnQ4M1dKPRs',
+                'Authorization': 'Bearer ' + access_token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
-        let result = await response.json();
-        return result;
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('likeFeeds :: ', result.message);
+            return false;
+        }
+
+        return true;
     } catch (error) {
-        console.log(error.message);
+        console.log('likeFeeds :: ', error.message);
+        return false;
     }
 };
 
 export const commentFeeds = async (feedId, comment) => {
-    const userId = fetchUserId();
-    data = {
-        commenterId: userId,
+    const access_token = await getToken(ACCESS_TOKEN_KEY);
+    const user = await getUserInfo();
+    const data = {
+        commenterId: user.userId,
         comment: comment
     };
+
     try {
-        let response = await fetch('http://192.168.1.151:3000/feeds/comment/' + feedId, {
+        const response = await fetch('http://192.168.1.151:3000/feeds/comment/' + feedId, {
             method: 'post',
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhZGVoZ2hhbiIsInBhc3N3b3JkIjoiJDJiJDEwJFF5TjBUVGhjdHUzWmVBNmsvVkEzVk9kQ2NnOGFjMy5BV25JeVJ1ay4wTXUzZEEyaE52S0RhIiwiaWF0IjoxNTk3OTc1NDY4LCJleHAiOjE1OTc5Nzg0Njh9.P-hti6sWwJVHtsb5KhhQ6WFoXELnkHl7HnQ4M1dKPRs',
+                'Authorization': 'Bearer ' + access_token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
-        let result = await response.json();
-        return result;
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('commentFeeds :: ', result.message);
+            return false;
+        }
+
+        return true;
     } catch (error) {
-        console.log(error.message);
+        console.log('commentFeeds :: ', error.message);
+        return false;
     }
 };
 
 export const bookmarkFeeds = async (feedId) => {
-    const userId = fetchUserId();
-    data = {
-        userId: userId,
+    const access_token = await getToken(ACCESS_TOKEN_KEY);
+    const user = await getUserInfo();
+    const data = {
+        userId: user.userId,
     };
+
     try {
-        let response = await fetch('http://192.168.1.151:3000/feeds/bookmark/' + feedId, {
+        const response = await fetch('http://192.168.1.151:3000/feeds/bookmark/' + feedId, {
             method: 'post',
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhZGVoZ2hhbiIsInBhc3N3b3JkIjoiJDJiJDEwJFF5TjBUVGhjdHUzWmVBNmsvVkEzVk9kQ2NnOGFjMy5BV25JeVJ1ay4wTXUzZEEyaE52S0RhIiwiaWF0IjoxNTk3OTc1NDY4LCJleHAiOjE1OTc5Nzg0Njh9.P-hti6sWwJVHtsb5KhhQ6WFoXELnkHl7HnQ4M1dKPRs',
+                'Authorization': 'Bearer ' + access_token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
-        let result = await response.json();
-        return result;
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('bookmarkFeeds :: ', result.message);
+            return false;
+        }
+
+        return true;
     } catch (error) {
-        console.log(error.message);
+        console.log('bookmarkFeeds :: ', error.message);
+        return false;
     }
 };

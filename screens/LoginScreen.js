@@ -1,22 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, StyleSheet, Button, TextInput, TouchableOpacity } from 'react-native';
+
+import { AuthContext } from '../components/UserConnections';
 
 const LoginScreen = props => {
-    console.log("login");
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const { signIn } = useContext(AuthContext);
+
     return (
-        <View style={styles.container}>
-            <View style={{ alignItems: 'center', justifyContent: 'center', margin: 20, paddingTop: 30, width: '100%', height: 200 }}>
-                <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-                    Sign In
-                </Text>
-            </View>
-            <View style={{ alignItems: 'center', justifyContent: 'center', margin: 20, paddingTop: 30, width: '100%', height: 300 }}>
-                <TextInput style={{ margin: 20, padding: 20 }} placeholder={'username'} />
-                <TextInput style={{ margin: 20, padding: 20 }} placeholder={'password'} />
-                <TouchableOpacity style={{ backgroundColor: 'darkgrey' }}>
-                    <Text style={{ color: 'white' }}>Sign In</Text>
-                </TouchableOpacity>
-            </View>
+        <View>
+            <TextInput
+                placeholder="Username"
+                value={username}
+                onChangeText={setUsername}
+            />
+            <TextInput
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+            />
+            <Button title="Sign in" onPress={() => { signIn({ username, password }) }} />
         </View>
     );
 };

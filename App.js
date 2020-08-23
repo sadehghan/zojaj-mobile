@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { View, I18nManager, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { isLogin } from './components/UserConnections';
+import { ACCESS_TOKEN_KEY, getToken, login, logout, AuthContext } from './components/UserConnections';
 
 import IconWithBadge from './components/IconWithBadge';
 import FeedScreen from './screens/FeedScreen';
@@ -23,16 +23,6 @@ import ChatContentScreen from './screens/ChatContentScreen';
 import ChatCreateScreen from './screens/ChatCreateScreen';
 import UploadScreen from './screens/UploadScreen'
 import LoginScreen from './screens/LoginScreen'
-
-I18nManager.forceRTL(false);
-
-// Modal screens
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>settings screen</Text>
-    </View>);
-}
 
 const Tab = createBottomTabNavigator();
 
@@ -113,37 +103,112 @@ function ChatLogoTitle({ route, navigation }) {
   );
 }
 
-function Login() {
-  console.log("LOGINGINGING PAGE");
+function SplashScreen() {
   return (
-    <LoginScreen></LoginScreen>
-  );
-}
-
-function Main() {
-  console.log("MAIN PAGE");
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="FeedDetails" component={FeedDetails} options={{ headerTitle: props => <FeedDetailsLogoTitle {...props} /> }} />
-        <Stack.Screen name="MailDetails" component={MailDetails} options={{ headerTitle: props => <MailDetailsLogoTitle {...props} /> }} />
-        <Stack.Screen name="MailCreate" component={MailCreateScreen} options={{ headerTitle: props => <MailCreateLogoTitle {...props} /> }} />
-        <Stack.Screen name="ChatContent" component={ChatContentScreen} />
-        <Stack.Screen name="ChatCreate" component={ChatCreateScreen} />
-        <Stack.Screen name="ShareDetails" component={ShareDetails} />
-        <Stack.Screen name="UploadScreen" component={UploadScreen} />
-        <Stack.Screen name="CourseDetails" component={CourseDetails} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View>
+      <Text>Loading...</Text>
+    </View>
   );
 }
 
 export default function App() {
+  const [state, dispatch] = React.useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case 'RESTORE_TOKEN':
+          return {
+            ...prevState,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case 'SIGN_IN':
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case 'SIGN_OUT':
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    }
+  );
+
+  React.useEffect(() => {
+    // Fetch the token from storage then navigate to our appropriate place
+    const bootstrapAsync = async () => {
+      let userToken;
+
+      try {
+        await setTimeout(() => { }, 15000);
+        userToken = await getToken(ACCESS_TOKEN_KEY);
+      } catch (e) {
+        // Restoring token failed
+      }
+
+      // After restoring token, we may need to validate it in production apps
+
+      // This will switch to the App screen or Auth screen and this loading
+      // screen will be unmounted and thrown away.
+      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+    };
+
+    bootstrapAsync();
+  }, []);
+
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async data => {
+        // In a production app, we need to send some data (usually username, password) to server and get a token
+        // We will also need to handle errors if sign in failed
+        // After getting token, we need to persist the token using `AsyncStorage`
+        // In the example, we'll use a dummy token
+        login(data.username, data.password);
+        dispatch({ type: 'SIGN_IN', token: getAccessToken(false) });
+      },
+      signOut: () => {
+        logout();
+        dispatch({ type: 'SIGN_OUT' })
+      },
+    }),
+    []
+  );
+
   return (
-    <View>
-      {isLogin() ? <Main></Main> : <Login></Login>}
-    </View>
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {
+            state.isLoading ? (
+              <Stack.Screen name="Splash" component={SplashScreen} />
+            ) : state.userToken != null ? (
+              <>
+                <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
+                <Stack.Screen name="FeedDetails" component={FeedDetails} options={{ headerTitle: props => <FeedDetailsLogoTitle {...props} /> }} />
+                <Stack.Screen name="MailDetails" component={MailDetails} options={{ headerTitle: props => <MailDetailsLogoTitle {...props} /> }} />
+                <Stack.Screen name="MailCreate" component={MailCreateScreen} options={{ headerTitle: props => <MailCreateLogoTitle {...props} /> }} />
+                <Stack.Screen name="ChatContent" component={ChatContentScreen} />
+                <Stack.Screen name="ChatCreate" component={ChatCreateScreen} />
+                <Stack.Screen name="ShareDetails" component={ShareDetails} />
+                <Stack.Screen name="UploadScreen" component={UploadScreen} />
+                <Stack.Screen name="CourseDetails" component={CourseDetails} />
+              </>
+            ) : (
+                  <>
+                    <Stack.Screen name="SignIn" component={LoginScreen} options={{ title: 'Sign in', animationTypeForReplace: state.isSignout ? 'pop' : 'push', }} />
+                  </>
+                )
+          }
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
