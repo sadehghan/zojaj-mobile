@@ -143,22 +143,14 @@ export default function App() {
   );
 
   React.useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
-      let userToken;
-
       try {
         await setTimeout(() => { }, 15000);
-        userToken = await getToken(ACCESS_TOKEN_KEY);
-      } catch (e) {
-        // Restoring token failed
+        const userToken = await getToken(ACCESS_TOKEN_KEY);
+        dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+      } catch (error) {
+        console.log('bootstrapAsync :: ', error.message);
       }
-
-      // After restoring token, we may need to validate it in production apps
-
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
-      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
     };
 
     bootstrapAsync();
@@ -167,16 +159,22 @@ export default function App() {
   const authContext = React.useMemo(
     () => ({
       signIn: async data => {
-        // In a production app, we need to send some data (usually username, password) to server and get a token
-        // We will also need to handle errors if sign in failed
-        // After getting token, we need to persist the token using `AsyncStorage`
-        // In the example, we'll use a dummy token
-        login(data.username, data.password);
-        dispatch({ type: 'SIGN_IN', token: getAccessToken(false) });
+        const result = login(data.username, data.password);
+        if (result) {
+          dispatch({ type: 'SIGN_IN', token: getToken(ACCESS_TOKEN_KEY) });
+        }
+        else {
+          console.log('SIGN IN ERROR');
+        }
       },
       signOut: () => {
-        logout();
-        dispatch({ type: 'SIGN_OUT' })
+        const result = logout();
+        if (result) {
+          dispatch({ type: 'SIGN_OUT' });
+        }
+        else {
+          console.log('SIGN OUT ERROR');
+        }
       },
     }),
     []

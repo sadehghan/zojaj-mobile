@@ -1,11 +1,13 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import * as React from 'react';
 
+import { SERVER_ADDRESS } from '../constants/DataBaseConstants';
+
 export const AuthContext = React.createContext();
 
-const ACCESS_TOKEN_KEY = '@accessToken';
-const REFRESH_TOKEN_KEY = '@refreshToken';
-const USER_INFO_KEY = '@userInfo';
+export const ACCESS_TOKEN_KEY = '@accessToken';
+export const REFRESH_TOKEN_KEY = '@refreshToken';
+export const USER_INFO_KEY = '@userInfo';
 
 const removeTokens = async () => {
     try {
@@ -69,7 +71,7 @@ export const login = async (username, password) => {
     };
 
     try {
-        const response = await fetch('http://192.168.1.151:3000/auth/login', {
+        const response = await fetch(SERVER_ADDRESS + 'auth/login', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,10 +84,10 @@ export const login = async (username, password) => {
             console.log('login :: ', result.message);
             return false;
         }
-
-        await storeToken(ACCESS_TOKEN_KEY, result.accessToken);
-        await storeToken(REFRESH_TOKEN_KEY, result.refreshToken);
-        await storeUserInfo({ userId: result.refreshToken, username: username });
+        
+        await storeToken(ACCESS_TOKEN_KEY, result.data.accessToken);
+        await storeToken(REFRESH_TOKEN_KEY, result.data.refreshToken);
+        await storeUserInfo({ userId: result.data.userId, username: username });
         return true;
     } catch (error) {
         console.log('login :: ', error.message);
@@ -95,7 +97,7 @@ export const login = async (username, password) => {
 
 export const logout = async () => {
     try {
-        const response = await fetch('http://192.168.1.151:3000/users/logout', {
+        const response = await fetch(SERVER_ADDRESS + 'users/logout', {
             method: 'post',
         });
 
@@ -120,7 +122,7 @@ export const retrieveAccessToken = async () => {
     };
 
     try {
-        const response = await fetch('http://192.168.1.151:3000/users/token', {
+        const response = await fetch(SERVER_ADDRESS + 'users/token', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',

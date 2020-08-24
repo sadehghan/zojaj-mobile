@@ -1,3 +1,5 @@
+export const SERVER_ADDRESS = "http://192.168.43.142:3000/";
+
 export const FEED_LIST = [
     { id: '1', name: 'Item!' },
     { id: '2', name: 'Item@' },

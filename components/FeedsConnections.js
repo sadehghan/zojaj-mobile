@@ -1,4 +1,5 @@
 import { getToken, ACCESS_TOKEN_KEY, getUserInfo } from './UserConnections';
+import { SERVER_ADDRESS } from '../constants/DataBaseConstants';
 
 export const fetchFeedsbyCategory = async (category, thePage, limit) => {
     const access_token = await getToken(ACCESS_TOKEN_KEY);
@@ -9,7 +10,7 @@ export const fetchFeedsbyCategory = async (category, thePage, limit) => {
     };
 
     try {
-        const response = await fetch('http://192.168.1.151:3000/feeds/filter', {
+        const response = await fetch(SERVER_ADDRESS + 'feeds/filter', {
             method: 'post',
             headers: {
                 'Authorization': 'Bearer ' + access_token,
@@ -24,7 +25,7 @@ export const fetchFeedsbyCategory = async (category, thePage, limit) => {
             return null;
         }
 
-        return result;
+        return result.data;
     } catch (error) {
         console.log('fetchFeedsbyCategory :: ', error.message);
         return null;
@@ -38,7 +39,7 @@ export const fetchTopFeeds = async (limit) => {
     };
 
     try {
-        const response = await fetch('http://192.168.1.151:3000/feeds/top', {
+        const response = await fetch(SERVER_ADDRESS + 'feeds/top', {
             method: 'post',
             headers: {
                 'Authorization': 'Bearer ' + access_token,
@@ -53,7 +54,7 @@ export const fetchTopFeeds = async (limit) => {
             return null;
         }
 
-        return result;
+        return result.data;
     } catch (error) {
         console.log('fetchTopFeeds :: ', error.message);
         return null;
@@ -67,7 +68,7 @@ export const searchFeeds = async (word, limit) => {
         limit: limit
     };
     try {
-        const response = await fetch('http://192.168.1.151:3000/feeds/search', {
+        const response = await fetch(SERVER_ADDRESS + 'feeds/search', {
             method: 'post',
             headers: {
                 'Authorization': 'Bearer ' + access_token,
@@ -82,7 +83,7 @@ export const searchFeeds = async (word, limit) => {
             return null;
         }
 
-        return result;
+        return result.data;
     } catch (error) {
         console.log('searchFeeds :: ', error.message);
         return null;
@@ -97,7 +98,7 @@ export const likeFeeds = async (feedId) => {
     };
 
     try {
-        const response = await fetch('http://192.168.1.151:3000/feeds/like/' + feedId, {
+        const response = await fetch(SERVER_ADDRESS + 'feeds/like/' + feedId, {
             method: 'post',
             headers: {
                 'Authorization': 'Bearer ' + access_token,
@@ -128,7 +129,7 @@ export const commentFeeds = async (feedId, comment) => {
     };
 
     try {
-        const response = await fetch('http://192.168.1.151:3000/feeds/comment/' + feedId, {
+        const response = await fetch(SERVER_ADDRESS + 'feeds/comment/' + feedId, {
             method: 'post',
             headers: {
                 'Authorization': 'Bearer ' + access_token,
@@ -158,7 +159,7 @@ export const bookmarkFeeds = async (feedId) => {
     };
 
     try {
-        const response = await fetch('http://192.168.1.151:3000/feeds/bookmark/' + feedId, {
+        const response = await fetch(SERVER_ADDRESS + 'feeds/bookmark/' + feedId, {
             method: 'post',
             headers: {
                 'Authorization': 'Bearer ' + access_token,
