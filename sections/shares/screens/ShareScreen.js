@@ -4,9 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import ShareItem from '../components/ShareItem';
-import TabInnerScreen from '../components/TabInnerScreen';
-
-import { FEED_LIST } from '../constants/DataBaseConstants';
+import TabInnerScreen from '../../../components/TabInnerScreen';
+import { FEED_LIST } from '../../../constants/DataBaseConstants';
 
 function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;

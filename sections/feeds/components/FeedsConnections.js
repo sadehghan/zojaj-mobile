@@ -1,5 +1,6 @@
-import { getToken, ACCESS_TOKEN_KEY, getUserInfo } from './UserConnections';
-import { SERVER_ADDRESS } from '../constants/DataBaseConstants';
+import { getToken, getUserInfo } from '../../auth/components/UserConnections';
+import { ACCESS_TOKEN_KEY} from '../../auth/constants/StorageConstants';
+import { SERVER_ADDRESS } from '../../../constants/ServerConstants';
 
 export const fetchFeedsbyCategory = async (category, thePage, limit) => {
     const access_token = await getToken(ACCESS_TOKEN_KEY);

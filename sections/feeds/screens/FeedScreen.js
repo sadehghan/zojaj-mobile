@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import FeedItem from '../components/FeedItem';
-import TabInnerScreen from '../components/TabInnerScreen';
+import TabInnerScreen from '../../../components/TabInnerScreen';
 import { fetchFeedsbyCategory } from '../components/FeedsConnections';
 
 function TabInnerScreenWrapper({ route, navigation }) {
@@ -38,7 +38,7 @@ function TabInnerScreenWrapper({ route, navigation }) {
             />
         );
     };
-    
+
     return (
         <TabInnerScreen render={renderItem} apiRequest={ApiRequest} />
     );

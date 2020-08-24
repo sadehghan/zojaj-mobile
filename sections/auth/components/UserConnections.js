@@ -1,13 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import * as React from 'react';
+import { createContext } from 'react';
 
-import { SERVER_ADDRESS } from '../constants/DataBaseConstants';
+import { SERVER_ADDRESS } from '../../../constants/ServerConstants';
+import {ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, USER_INFO_KEY} from '../constants/StorageConstants';
 
-export const AuthContext = React.createContext();
-
-export const ACCESS_TOKEN_KEY = '@accessToken';
-export const REFRESH_TOKEN_KEY = '@refreshToken';
-export const USER_INFO_KEY = '@userInfo';
+export const AuthContext = createContext();
 
 const removeTokens = async () => {
     try {

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import ChatItem from '../components/ChatItem';
-import TabInnerScreen from '../components/TabInnerScreen';
+import TabInnerScreen from '../../../components/TabInnerScreen';
 import { fetchMails } from '../components/Connections';
 
 function TabInnerScreenWrapper({ route, navigation }) {
@@ -25,7 +25,7 @@ function TabInnerScreenWrapper({ route, navigation }) {
             <ChatItem
                 id={item.chatId}
                 modalCaller={callHandler}
-                
+
             />
         );
     };

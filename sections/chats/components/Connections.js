@@ -1,4 +1,4 @@
-import { FEEDS, MAILS, USERS } from '../constants/DataBaseConstants';
+import { FEEDS, MAILS, USERS } from '../../../constants/DataBaseConstants';
 
 export const fetchMails = async (category, thePage, limit) => {
     const USER_ID = '1';

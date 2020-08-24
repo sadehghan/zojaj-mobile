@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity, Image } from 'react-native';
-import { LONG_TEXT, COMMENTS } from '../constants/TextConstants';
+import { LONG_TEXT, COMMENTS } from '../../../constants/TextConstants';
 
 const FeedDetails = props => {
     return (

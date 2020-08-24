@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { LONG_TEXT } from '../constants/TextConstants';
-
 const ShareDetails = props => {
     const data = [1, 2, 3, 4, 5];
 

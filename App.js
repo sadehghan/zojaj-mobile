@@ -6,23 +6,24 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { ACCESS_TOKEN_KEY, getToken, login, logout, AuthContext } from './components/UserConnections';
+import { getToken, login, logout, AuthContext } from './sections/auth/components/UserConnections';
+import { ACCESS_TOKEN_KEY } from './sections/auth/constants/StorageConstants';
 
 import IconWithBadge from './components/IconWithBadge';
-import FeedScreen from './screens/FeedScreen';
-import ChatScreen from './screens/ChatScreen';
-import MailScreen from './screens/MailScreen';
-import LearnScreen from './screens/LearnScreen';
-import ShareScreen from './screens/ShareScreen';
-import FeedDetails from './screens/FeedDetails';
-import MailDetails from './screens/MailDetails';
-import ShareDetails from './screens/ShareDetails';
-import CourseDetails from './screens/CourseDetails';
-import MailCreateScreen from './screens/MailCreateScreen';
-import ChatContentScreen from './screens/ChatContentScreen';
-import ChatCreateScreen from './screens/ChatCreateScreen';
-import UploadScreen from './screens/UploadScreen'
-import LoginScreen from './screens/LoginScreen'
+import FeedScreen from './sections/feeds/screens/FeedScreen';
+import ChatScreen from './sections/chats/screens/ChatScreen';
+import MailScreen from './sections/mails/screens/MailScreen';
+import LearnScreen from './sections/learns/screens/LearnScreen';
+import ShareScreen from './sections/shares/screens/ShareScreen';
+import FeedDetails from './sections/feeds/screens/FeedDetails';
+import MailDetails from './sections/mails/screens/MailDetails';
+import ShareDetails from './sections/shares/screens/ShareDetails';
+import CourseDetails from './sections/learns/screens/CourseDetails';
+import MailCreateScreen from './sections/mails/screens/MailCreateScreen';
+import ChatContentScreen from './sections/chats/screens/ChatContentScreen';
+import ChatCreateScreen from './sections/chats/screens/ChatCreateScreen';
+import UploadScreen from './sections/shares/screens/UploadScreen'
+import LoginScreen from './sections/auth/screens/LoginScreen'
 
 const Tab = createBottomTabNavigator();
 
@@ -49,7 +50,7 @@ function HomeTabs() {
       <Tab.Screen
         name="گفتگو"
         component={ChatScreen}
-        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-chatbubbles'} color={color} size={size} badgeCount={0} />) }}
+        options={{ tabBarIcon: ({ focused, color, size }) => (<IconWithBadge name={'ios-chatbubbles'} color={color} size={size} badgeCount={3} />) }}
       />
       <Tab.Screen
         name="آموزش"

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { LONG_TEXT } from '../constants/TextConstants';
+import { LONG_TEXT } from '../../../constants/TextConstants';
 
 const MailDetails = props => {
     return (

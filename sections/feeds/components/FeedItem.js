@@ -3,8 +3,8 @@ import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import FeedInfo from './FeedInfo';
-import { SERVER_ADDRESS } from '../constants/DataBaseConstants';
-import { getToken, ACCESS_TOKEN_KEY, getUserInfo } from './UserConnections';
+import { SERVER_ADDRESS } from '../../../constants/ServerConstants';
+import { getToken, ACCESS_TOKEN_KEY } from '../../auth/components/UserConnections';
 
 const FeedItem = props => {
     const access_token = getToken(ACCESS_TOKEN_KEY);

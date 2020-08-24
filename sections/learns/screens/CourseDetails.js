@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, ScrollView, FlatList, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { LONG_TEXT } from '../constants/TextConstants';
+import { LONG_TEXT } from '../../../constants/TextConstants';
 
 const CourseDetails = props => {
     const DATA = [

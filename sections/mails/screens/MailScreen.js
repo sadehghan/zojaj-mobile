@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import MailItem from '../components/MailItem';
-import TabInnerScreen from '../components/TabInnerScreen';
+import TabInnerScreen from '../../../components/TabInnerScreen';
 import { fetchMails } from '../components/Connections';
 
 function TabInnerScreenWrapper({ route, navigation }) {
