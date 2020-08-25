@@ -1,5 +1,5 @@
-import { getToken, getUserInfo } from '../../auth/components/UserConnections';
-import { ACCESS_TOKEN_KEY} from '../../auth/constants/StorageConstants';
+import { getToken, getUserInfo, retrieveAccessToken } from '../../auth/components/UserConnections';
+import { ACCESS_TOKEN_KEY } from '../../auth/constants/StorageConstants';
 import { SERVER_ADDRESS } from '../../../constants/ServerConstants';
 
 export const fetchFeedsbyCategory = async (category, thePage, limit) => {
@@ -20,15 +20,25 @@ export const fetchFeedsbyCategory = async (category, thePage, limit) => {
             body: JSON.stringify(data),
         });
 
-        const result = await response.json();
-        if (result.status == 'failed') {
-            console.log('fetchFeedsbyCategory :: ', result.message);
-            return null;
+        if (response.status == 401) {
+            console.log('fetchFeedsbyCategory (#1) :: Access token expired.');
+            if (retrieveAccessToken()) {
+                return await fetchFeedsbyCategory(category, thePage, limit);
+            }
+            else {
+                console.log('fetchFeedsbyCategory (#2) :: can not retrive access token');
+                return null
+            }
         }
 
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('fetchFeedsbyCategory (#3) :: ', result.message);
+            return null;
+        }
         return result.data;
     } catch (error) {
-        console.log('fetchFeedsbyCategory :: ', error.message);
+        console.log('fetchFeedsbyCategory (#4) :: ', error.message);
         return null;
     }
 };
@@ -49,12 +59,22 @@ export const fetchTopFeeds = async (limit) => {
             body: JSON.stringify(data),
         });
 
+        if (response.status == 401) {
+            console.log('fetchTopFeeds :: Access token expired.');
+            if (retrieveAccessToken()) {
+                return await fetchTopFeeds(limit);
+            }
+            else {
+                console.log('fetchTopFeeds :: can not retrive access token');
+                return null
+            }
+        }
+
         const result = await response.json();
         if (result.status == 'failed') {
             console.log('fetchTopFeeds :: ', result.message);
             return null;
         }
-
         return result.data;
     } catch (error) {
         console.log('fetchTopFeeds :: ', error.message);
@@ -78,12 +98,22 @@ export const searchFeeds = async (word, limit) => {
             body: JSON.stringify(data),
         });
 
+        if (response.status == 401) {
+            console.log('searchFeeds :: Access token expired.');
+            if (retrieveAccessToken()) {
+                return await searchFeeds(word, limit);
+            }
+            else {
+                console.log('searchFeeds :: can not retrive access token');
+                return null
+            }
+        }
+
         const result = await response.json();
         if (result.status == 'failed') {
             console.log('searchFeeds :: ', result.message);
             return null;
         }
-
         return result.data;
     } catch (error) {
         console.log('searchFeeds :: ', error.message);
@@ -107,6 +137,17 @@ export const likeFeeds = async (feedId) => {
             },
             body: JSON.stringify(data),
         });
+
+        if (response.status == 401) {
+            console.log('likeFeeds :: Access token expired.');
+            if (retrieveAccessToken()) {
+                return await likeFeeds(feedId);
+            }
+            else {
+                console.log('likeFeeds :: can not retrive access token');
+                return false
+            }
+        }
 
         const result = await response.json();
         if (result.status == 'failed') {
@@ -139,6 +180,17 @@ export const commentFeeds = async (feedId, comment) => {
             body: JSON.stringify(data),
         });
 
+        if (response.status == 401) {
+            console.log('commentFeeds :: Access token expired.');
+            if (retrieveAccessToken()) {
+                return await commentFeeds(feedId, comment);
+            }
+            else {
+                console.log('commentFeeds :: can not retrive access token');
+                return false
+            }
+        }
+
         const result = await response.json();
         if (result.status == 'failed') {
             console.log('commentFeeds :: ', result.message);
@@ -168,6 +220,17 @@ export const bookmarkFeeds = async (feedId) => {
             },
             body: JSON.stringify(data),
         });
+
+        if (response.status == 401) {
+            console.log('bookmarkFeeds :: Access token expired.');
+            if (retrieveAccessToken()) {
+                return await bookmarkFeeds(feedId);
+            }
+            else {
+                console.log('bookmarkFeeds :: can not retrive access token');
+                return false
+            }
+        }
 
         const result = await response.json();
         if (result.status == 'failed') {

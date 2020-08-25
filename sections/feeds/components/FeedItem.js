@@ -1,12 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import FeedInfo from './FeedInfo';
 import { SERVER_ADDRESS } from '../../../constants/ServerConstants';
-import { getToken, ACCESS_TOKEN_KEY } from '../../auth/components/UserConnections';
+import { getToken, getUserInfo } from '../../auth/components/UserConnections';
+import { ACCESS_TOKEN_KEY } from '../../auth/constants/StorageConstants';
+import { likeFeeds, bookmarkFeeds } from '../components/FeedsConnections'
 
 const FeedItem = props => {
+    const [isLiked, setIsLiked] = useState(false);
+    const [isBookmarked, setIsBookmarked] = useState(false);
+
+    const likeItem = async () => {
+        if (isLiked)
+            return;
+
+        if (await likeFeeds(props.id))
+            setIsLiked(true);
+    };
+
+    const bookmarkItem = async () => {
+        if (isBookmarked)
+            return;
+
+        if (await bookmarkFeeds(props.id))
+            setIsBookmarked(true);
+    };
+
+    const initialize = async () => {
+        const userInfo = await getUserInfo();
+        if (props.likers.includes(userInfo.userId)) {
+            setIsLiked(true);
+        }
+    };
+
+    const LikeStatus = () => {
+        return isLiked ? <Ionicons name={'ios-heart'} size={30} color={'black'} /> : <Ionicons name={'ios-heart-empty'} size={30} color={'black'} />
+    };
+
+    useEffect(() => {
+        initialize();
+    }, []);
+
+    useEffect(() => {
+    }, [isLiked]);
+
     const access_token = getToken(ACCESS_TOKEN_KEY);
 
     return (
@@ -31,11 +70,16 @@ const FeedItem = props => {
             <View>
                 <View style={{ paddingHorizontal: 15, flexDirection: 'row-reverse', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 7, paddingHorizontal: 15 }}>
                     <View style={{ flexDirection: 'row-reverse', justifyContent: "space-between", alignItems: 'center' }}>
-                        <TouchableOpacity style={{ paddingLeft: 20 }}><Ionicons name={'ios-heart-empty'} size={30} color={'black'} /></TouchableOpacity>
+                        <TouchableOpacity onPress={likeItem} style={{ paddingLeft: 20 }}>
+                            <LikeStatus></LikeStatus>
+                        </TouchableOpacity>
+
                         <TouchableOpacity onPress={props.modalCaller}><Ionicons name={'md-list'} size={30} color={'black'} /></TouchableOpacity>
+
                         <TouchableOpacity style={{ paddingRight: 20 }}><Ionicons name={'md-paper-plane'} size={30} color={'black'} /></TouchableOpacity>
                     </View>
-                    {/* <TouchableOpacity style={{ paddingRight: 20 }}><Ionicons name={'ios-star-outline'} size={30} color={'black'} /></TouchableOpacity> */}
+
+                    <TouchableOpacity style={{ paddingRight: 20 }}><Ionicons name={'ios-star-outline'} size={30} color={'black'} /></TouchableOpacity>
                 </View>
                 <FeedInfo
                     title={props.title}

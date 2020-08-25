@@ -106,8 +106,8 @@ function ChatLogoTitle({ route, navigation }) {
 
 function SplashScreen() {
   return (
-    <View>
-      <Text>Loading...</Text>
+    <View style={{ justifyContent: 'center', alignItems: 'center', margin: 10 }}>
+      <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Loading...</Text>
     </View>
   );
 }

@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { createContext } from 'react';
 
 import { SERVER_ADDRESS } from '../../../constants/ServerConstants';
-import {ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, USER_INFO_KEY} from '../constants/StorageConstants';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, USER_INFO_KEY } from '../constants/StorageConstants';
 
 export const AuthContext = createContext();
 
@@ -81,7 +81,7 @@ export const login = async (username, password) => {
             console.log('login :: ', result.message);
             return false;
         }
-        
+
         await storeToken(ACCESS_TOKEN_KEY, result.data.accessToken);
         await storeToken(REFRESH_TOKEN_KEY, result.data.refreshToken);
         await storeUserInfo({ userId: result.data.userId, username: username });
@@ -129,14 +129,14 @@ export const retrieveAccessToken = async () => {
 
         const result = await response.json();
         if (result.status == 'failed') {
-            console.log('logout :: ', result.message);
+            console.log('retrieveAccessToken (#1) :: ', result.message);
             return false;
         }
 
         await storeToken(ACCESS_TOKEN_KEY, result.accessToken);
         return true;
     } catch (error) {
-        console.log('retrieveAccessToken :: ', error.message);
+        console.log('retrieveAccessToken (#2) :: ', error.message);
         return false;
     }
 };

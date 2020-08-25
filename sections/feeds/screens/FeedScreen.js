@@ -9,11 +9,14 @@ import { fetchFeedsbyCategory } from '../components/FeedsConnections';
 
 function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
-
+    
     const ApiRequest = async thePage => {
         const LIMIT = 5;
-        result = await fetchFeedsbyCategory(itemId, thePage, LIMIT);
-        return result;
+        const result = await fetchFeedsbyCategory(itemId, thePage, LIMIT);
+        if (result !== null)
+            return result;
+        else
+            return [];
     };
 
     const callHandler = () => {
@@ -21,17 +24,15 @@ function TabInnerScreenWrapper({ route, navigation }) {
     };
 
     const renderItem = ({ item }) => {
-        console.log('ITEM');
         return (
             <FeedItem
                 id={item._id}
                 modalCaller={callHandler}
                 from={item.source}
-                // logo={item.logo}
-                // image={item.image}
                 title={item.title}
                 desc={item.news}
-                likes={item.likeNo}
+                likes={item.likesNo}
+                likers={item.likers}
                 commentsNo={item.commentsNo}
                 comments={item.comments}
                 date={item.created}

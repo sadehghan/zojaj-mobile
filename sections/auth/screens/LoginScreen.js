@@ -10,8 +10,9 @@ const LoginScreen = props => {
     const { signIn } = useContext(AuthContext);
 
     return (
-        <View>
+        <View style={{ justifyContent: 'center', alignItems: 'center', margin: 10 }}>
             <TextInput
+                style={{ paddingVertical: 20 }}
                 placeholder="Username"
                 value={username}
                 onChangeText={setUsername}
