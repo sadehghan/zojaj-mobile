@@ -1,37 +1,51 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import MailItem from '../components/MailItem';
 import TabInnerScreen from '../../../components/TabInnerScreen';
-import { fetchMails } from '../components/Connections';
+import { fetchMails } from '../components/MailsConnections';
+import { getUserInfo } from '../../auth/components/UserConnections';
 
 function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
 
     const ApiRequest = async thePage => {
         const LIMIT = 10;
-        result = await fetchMails(itemId, thePage, LIMIT);
-        return result;
+        const result = await fetchMails(itemId, thePage, LIMIT);
+        if (result !== null)
+            return result;
+        else
+            return [];
     };
 
-    const callHandler = () => {
-        navigation.navigate('MailDetails');
+    const callHandler = (title, from, text, date) => {
+        navigation.navigate('MailDetails', { title: title, from: from, text: text, date: date });
     };
 
     const renderItem = ({ item }) => {
+        const isRead = false;
+        const isImportant = false;
+        const userInfo = await getUserInfo();
+
+        if (itemId != 'UNREAD' && item.readers.includes(userInfo.userId))
+            isRead = true;
+
+        if (itemId == 'IMPORTANT' || item.importants.includes(userInfo.userId))
+            isImportant = true;
+
         return (
             <MailItem
                 id={item.mailId}
                 modalCaller={callHandler}
-                //logo={item.logo}
-                from={item.fromUserId}
-                title={item.title}
+                from={item.source}
+                to={item.destinations}
+                title={item.subject}
                 text={item.text}
-                date={item.date}
-                isRead={item.isRead}
-                isImportant={item.isImportant}
+                date={item.created}
+                isRead={isRead}
+                isImportant={isImportant}
             />
         );
     };
@@ -70,7 +84,7 @@ const MailScreen = props => {
                 }}
             >
                 <Tab.Screen name="همه" component={TabInnerScreenWrapper} initialParams={{ itemId: 'ALL' }} />
-                <Tab.Screen name="ارسالی" component={TabInnerScreenWrapper} initialParams={{ itemId: 'Sent' }} />
+                <Tab.Screen name="ارسالی" component={TabInnerScreenWrapper} initialParams={{ itemId: 'SENT' }} />
                 <Tab.Screen name="مهم" component={TabInnerScreenWrapper} initialParams={{ itemId: 'IMPORTANT' }} />
                 <Tab.Screen name="نخوانده" component={TabInnerScreenWrapper} initialParams={{ itemId: 'UNREAD' }} />
             </Tab.Navigator>
