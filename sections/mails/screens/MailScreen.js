@@ -27,12 +27,12 @@ function TabInnerScreenWrapper({ route, navigation }) {
     const renderItem = ({ item }) => {
         const isRead = false;
         const isImportant = false;
-        const userInfo = await getUserInfo();
+        const userInfo = getUserInfo();
 
         if (itemId != 'UNREAD' && item.readers.includes(userInfo.userId))
             isRead = true;
 
-        if (itemId == 'IMPORTANT' || item.importants.includes(userInfo.userId))
+        if (itemId == 'IMPORTANT' || item.importanters.includes(userInfo.userId))
             isImportant = true;
 
         return (

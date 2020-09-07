@@ -146,9 +146,11 @@ export const sendMail = async (subject, text, destinations) => {
 
 const fetchAllMails = async (thePage, limit) => {
     const access_token = await getToken(ACCESS_TOKEN_KEY);
+    const user = await getUserInfo();
     const data = {
         page: thePage,
-        limit: limit
+        limit: limit,
+        userId: user.userId
     };
 
     try {
@@ -221,7 +223,6 @@ const fetchUnreadMails = async (thePage, limit) => {
             console.log('fetchUnreadMails (#3) :: ', result.message);
             return null;
         }
-
         return result.data;
     } catch (error) {
         console.log('fetchUnreadMails (#4) :: ', error.message);

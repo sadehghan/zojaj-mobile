@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { SERVER_ADDRESS } from '../../../constants/ServerConstants';
-import { getToken } from '../../auth/components/UserConnections';
+import { getToken, getUserInfo } from '../../auth/components/UserConnections';
 import { ACCESS_TOKEN_KEY } from '../../auth/constants/StorageConstants';
 
 const MailItem = props => {
@@ -20,12 +20,12 @@ const MailItem = props => {
                 />
             </View>
             <View style={{ width: '75%' }}>
-                <Text style={isReadStyle}>{props.from}</Text>
+                <Text style={isReadStyle}>جعفری</Text>
                 <Text style={isReadStyle} numberOfLines={1}>{props.title}</Text>
                 <Text numberOfLines={1} style={isReadStyle}>{props.text}</Text>
             </View>
             <View style={{ alignItems: 'center', paddingRight: 10 }}>
-                <Text style={{ fontSize: 10 }}>{props.date}</Text>
+                <Text style={{ fontSize: 10 }}>۵ روز قبل</Text>
                 <TouchableOpacity style={{ paddingTop: 10 }}><Ionicons name={important} size={20} color={'black'} /></TouchableOpacity>
             </View>
         </TouchableOpacity>

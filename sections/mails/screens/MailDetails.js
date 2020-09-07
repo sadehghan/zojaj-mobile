@@ -3,6 +3,8 @@ import { View, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity, Image 
 import { Ionicons } from '@expo/vector-icons';
 
 import { ACCESS_TOKEN_KEY } from '../../auth/constants/StorageConstants';
+import { getToken, getUserInfo, retrieveAccessToken } from '../../auth/components/UserConnections';
+import { SERVER_ADDRESS } from '../../../constants/ServerConstants';
 
 const MailDetails = props => {
     const access_token = getToken(ACCESS_TOKEN_KEY);
