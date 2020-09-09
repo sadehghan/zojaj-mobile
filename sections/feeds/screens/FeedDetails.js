@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity, Image } from 'react-native';
-import { LONG_TEXT, COMMENTS } from '../../../constants/TextConstants';
+import { commentFeeds } from '../components/FeedsConnections';
 
 const FeedDetails = props => {
+
+    const [value, onChangeText] = React.useState('');
+
     return (
         <View style={styles.container}>
             <View style={{
@@ -18,8 +21,8 @@ const FeedDetails = props => {
                 backgroundColor: 'lightgrey'
             }}>
                 <View style={{ paddingHorizontal: 20, backgroundColor: 'white', width: '95%', height: '80%', borderRadius: 15, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row-reverse' }}>
-                    <TextInput placeholder={'نوشتن توضیح ...'}></TextInput>
-                    <TouchableOpacity>
+                    <TextInput placeholder={'نوشتن توضیح ...'} value={value} onChangeText={text => onChangeText(text)}></TextInput>
+                    <TouchableOpacity onPress={() => commentFeeds(props.route.params.id, value)}>
                         <Text style={{ color: 'blue' }}> ارسال</Text>
                     </TouchableOpacity>
                 </View>
@@ -33,13 +36,13 @@ const FeedDetails = props => {
                         <View style={{ paddingTop: 5 }}>
                             <Text style={{ fontWeight: 'bold' }}>خبرگزاری فارس</Text>
                             <View style={{ paddingTop: 10 }}>
-                                <Text>{LONG_TEXT + LONG_TEXT}</Text>
+                                <Text>{props.route.params.news}</Text>
                             </View>
                             <Text style={{ color: 'lightgrey', fontSize: 10, paddingTop: 10 }}>27m</Text>
                         </View>
                     </View>
                     {
-                        COMMENTS.map((comment, index) => {
+                        props.route.params.comments.map((comment, index) => {
                             return (
                                 <View key={index} style={{ width: '100%', flexDirection: 'row', paddingRight: 95, paddingVertical: 10, borderColor: 'lightgrey', borderBottomWidth: 0.3 }}>
                                     <View style={{ width: '20%', paddingHorizontal: 10, alignItems: 'center' }}>

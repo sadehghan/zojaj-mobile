@@ -140,3 +140,40 @@ export const retrieveAccessToken = async () => {
         return false;
     }
 };
+
+export const getUserBookmarkedFeeds = async () => {
+    const access_token = await getToken(ACCESS_TOKEN_KEY);
+    const user = await getUserInfo();
+
+    try {
+        const response = await fetch(SERVER_ADDRESS + 'users/' + user.userId + '/bookmarkedfeeds', {
+            method: 'get',
+            headers: {
+                'Authorization': 'Bearer ' + access_token,
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (response.status == 401) {
+            console.log('bookmarkFeeds :: Access token expired.');
+            if (retrieveAccessToken()) {
+                return await getUserBookmarkedFeeds();
+            }
+            else {
+                console.log('getUserBookmarkedFeeds :: can not retrive access token');
+                return null;
+            }
+        }
+
+        const result = await response.json();
+        if (result.status == 'failed') {
+            console.log('getUserBookmarkedFeeds :: ', result.message);
+            return null;
+        }
+
+        return result.data.bookmarkedFeeds;
+    } catch (error) {
+        console.log('getUserBookmarkedFeeds :: ', error.message);
+        return null;
+    }
+};

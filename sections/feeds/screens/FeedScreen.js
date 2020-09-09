@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -6,11 +6,16 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import FeedItem from '../components/FeedItem';
 import TabInnerScreen from '../../../components/TabInnerScreen';
 import { fetchFeedsbyCategory } from '../components/FeedsConnections';
+import { getUserBookmarkedFeeds } from '../../auth/components/UserConnections';
 
 function TabInnerScreenWrapper({ route, navigation }) {
     const { itemId } = route.params;
-    
+    const [bookmarkedFeeds, setBookmarkedFeeds] = useState([]);
+
     const ApiRequest = async thePage => {
+        const bookmarked = await getUserBookmarkedFeeds();
+        setBookmarkedFeeds(bookmarked);
+
         const LIMIT = 5;
         const result = await fetchFeedsbyCategory(itemId, thePage, LIMIT);
         if (result !== null)
@@ -19,11 +24,13 @@ function TabInnerScreenWrapper({ route, navigation }) {
             return [];
     };
 
-    const callHandler = () => {
-        navigation.navigate('FeedDetails');
+    const callHandler = (news, comments, id) => {
+        navigation.navigate('FeedDetails', {news: news, comments: comments, id: id});
     };
 
     const renderItem = ({ item }) => {
+        isBooked = bookmarkedFeeds.includes(item._id);
+        
         return (
             <FeedItem
                 id={item._id}
@@ -35,6 +42,7 @@ function TabInnerScreenWrapper({ route, navigation }) {
                 likers={item.likers}
                 commentsNo={item.commentsNo}
                 comments={item.comments}
+                isBookmarked={isBooked}
                 date={item.created}
             />
         );

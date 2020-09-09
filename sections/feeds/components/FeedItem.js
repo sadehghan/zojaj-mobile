@@ -33,10 +33,16 @@ const FeedItem = props => {
         if (props.likers.includes(userInfo.userId)) {
             setIsLiked(true);
         }
+
+        setIsBookmarked(props.isBookmarked);
     };
 
     const LikeStatus = () => {
         return isLiked ? <Ionicons name={'ios-heart'} size={30} color={'black'} /> : <Ionicons name={'ios-heart-empty'} size={30} color={'black'} />
+    };
+
+    const BookmarkStatus = () => {
+        return isBookmarked ? <Ionicons name={'ios-star'} size={30} color={'black'} /> : <Ionicons name={'ios-star-outline'} size={30} color={'black'} />
     };
 
     useEffect(() => {
@@ -44,7 +50,7 @@ const FeedItem = props => {
     }, []);
 
     useEffect(() => {
-    }, [isLiked]);
+    }, [isLiked, isBookmarked]);
 
     const access_token = getToken(ACCESS_TOKEN_KEY);
 
@@ -60,7 +66,7 @@ const FeedItem = props => {
                 </View>
             </View>
             <View>
-                <TouchableOpacity onPress={props.modalCaller}>
+                <TouchableOpacity onPress={() => props.modalCaller(props.desc, props.comments, props.id)}>
                     <Image
                         source={{ uri: SERVER_ADDRESS + 'files/feeds/images/' + props.id, headers: { Authorization: 'Bearer ' + access_token } }}
                         style={{ resizeMode: 'stretch', width: '100%', height: 275 }}
@@ -74,12 +80,14 @@ const FeedItem = props => {
                             <LikeStatus></LikeStatus>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={props.modalCaller}><Ionicons name={'md-list'} size={30} color={'black'} /></TouchableOpacity>
+                        <TouchableOpacity onPress={() => props.modalCaller(props.desc, props.comments, props.id)}><Ionicons name={'md-list'} size={30} color={'black'} /></TouchableOpacity>
 
                         <TouchableOpacity style={{ paddingRight: 20 }}><Ionicons name={'md-paper-plane'} size={30} color={'black'} /></TouchableOpacity>
                     </View>
 
-                    <TouchableOpacity style={{ paddingRight: 20 }}><Ionicons name={'ios-star-outline'} size={30} color={'black'} /></TouchableOpacity>
+                    <TouchableOpacity onPress={bookmarkItem} style={{ paddingLeft: 20 }}>
+                        <BookmarkStatus></BookmarkStatus>
+                    </TouchableOpacity>
                 </View>
                 <FeedInfo
                     title={props.title}
